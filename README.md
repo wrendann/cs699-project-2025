@@ -6,3 +6,5 @@ This app will help you find, join or create teams, for various events and compet
 
 
 To be developed using Django backend and aReact frontend.
+
+We will be using the default sqlite Django database initially.
