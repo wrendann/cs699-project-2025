@@ -10,9 +10,9 @@ Events will be scraped from different websites.
 
 Done by,
 
-Ragav R
-M ziyad
-Alan
+* Ragav R
+* M ziyad
+* Alan
 
 
 Resumes will be automatically analyzed and teams can set tags to filter candidates.
