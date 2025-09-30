@@ -10,3 +10,8 @@ To be developed using Django backend and aReact frontend.
 We will be using the default sqlite Django database initially.
 
 Events will be scraped from different websites.
+
+Done by,
+Ragav R
+M ziyad
+Alan
