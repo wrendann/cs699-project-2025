@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { signInWithEmail } from "./services/users";
-import { requestReset } from "./services/resetPassword";
+import { signInWithEmail } from "../services/users";
+import { requestReset } from "../services/resetPassword";
 import {
   Button,
   Grid,
