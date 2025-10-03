@@ -48,7 +48,7 @@ class Event(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     location = models.CharField(max_length=200)
-    organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organized_events')
+    # organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organized_events')
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
