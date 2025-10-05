@@ -30,6 +30,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+AUTH_USER_MODEL = 'TFapp.User'
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'TFapp',
+    
     # Third-party apps
     'rest_framework',
     'rest_framework.authtoken',
@@ -48,11 +54,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'corsheaders',
 
-    'TFapp',
 ]
-
-# Required by django-allauth
-SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,14 +155,32 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 
+# allauth settings
+SITE_ID = 1
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# allauth configuration
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # require verification before login
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # so clicking link in email activates it
+ACCOUNT_ADAPTER = 'TFapp.adapters.CustomAccountAdapter'
+
+# optional: don’t automatically log in users after signup
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+# REST Framework setup
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',  # or TokenAuthentication
+    ],
+}
+
 
 # Make sure both email and username are required for new accounts.
-ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 
-# The email address must be unique.
-ACCOUNT_UNIQUE_EMAIL = True
 
 # AUTHENTICATION_BACKENDS should remain the same.
 AUTHENTICATION_BACKENDS = (

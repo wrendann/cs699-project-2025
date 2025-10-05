@@ -16,6 +16,7 @@ class User(AbstractUser):
     location = models.CharField(max_length=100, blank=True)
     profile_picture = models.URLField(max_length=200, null=True, blank=True)
 
+
     # Add related_name to avoid clashes with the default User model
     groups = models.ManyToManyField(
         Group,

@@ -5,12 +5,20 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 from rest_framework import viewsets
-from .models import Event
-from .serializers import EventSerializer
+from .models import Event, Team, Membership
+from .serializers import EventSerializer, TeamSerializer, MembershipSerializer
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+class TeamViewSet(viewsets.ModelViewSet):
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
+
+class MembershipViewSet(viewsets.ModelViewSet):
+    queryset = Membership.objects.all()
+    serializer_class = MembershipSerializer
 
 
 # Create your views here.
