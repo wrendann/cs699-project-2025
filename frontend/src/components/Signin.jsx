@@ -18,10 +18,10 @@ const onEmailSignin = async (credentials, setUser, setErrorMessage) => {
   try {
     const response = await signInWithEmail({ credentials: credentials });
     setUser(response.user);
-    window.localStorage.setItem("IITBTeamFinderUser", JSON.stringify(response.user));
+    window.localStorage.setItem("IITBTeamFinderUser", JSON.stringify(response.user.username));
     window.localStorage.setItem(
       "IITBTeamFinderUserToken",
-      JSON.stringify(response.token)
+      JSON.stringify(response.access)
     );
     document.body.style.overflow = "hidden";
   } catch (err) {
