@@ -143,6 +143,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+REST_AUTH = {
+    'USER_DETAILS_SERIALIZER': 'TFapp.serializers.UserDetailsSerializer',
+    'USE_JWT': True, # Set to True if you are using JWT
+}
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
