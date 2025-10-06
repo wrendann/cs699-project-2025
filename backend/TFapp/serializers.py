@@ -7,9 +7,26 @@ class EventSerializer(serializers.ModelSerializer):
         fields = '__all__'  # Or specify the fields you want to expose
 
 class TeamSerializer(serializers.ModelSerializer):
+    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Team
-        fields = '__all__'
+        # It's best practice to explicitly list fields instead of using '__all__'
+        fields = [
+            'id',
+            'name',
+            'description',
+            'event',
+            'owner',  # The read-only field we just defined
+            'max_size',
+            'required_skills',
+            'is_open',
+            'created_at',
+            'current_size', # Include your @property fields
+            'is_full'       # Include your @property fields
+        ]
+        # You can also mark property fields from the model as read_only here
+        read_only_fields = ['current_size', 'is_full']
 
 class MembershipSerializer(serializers.ModelSerializer):
     class Meta:
