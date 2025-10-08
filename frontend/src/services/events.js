@@ -53,7 +53,7 @@ export const getEvents = async () => {
         },
     ];
     
-    const response = await apiClient.get(`events/`);
+    const response = await apiClient.get(`TFapp/events/`);
     return response.data;
 }
 
