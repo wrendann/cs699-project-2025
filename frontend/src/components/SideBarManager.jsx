@@ -153,15 +153,6 @@ const SideBar = ({ lastButton, setLastButton, handleClose }) => {
             handleClose={handleClose}
           />
           <SideBarButton
-            label=" Members"
-            icon={MembersIcon}
-            name="members"
-            lastButton={lastButton}
-            setLastButton={setLastButton}
-            link="/members"
-            handleClose={handleClose}
-          />
-          <SideBarButton
             label=" Profile"
             icon={ProfileIcon}
             name="profile"

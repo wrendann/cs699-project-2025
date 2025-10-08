@@ -11,10 +11,8 @@ import Dashboard from "./components/Dashboard";
 import Events from "./components/Events";
 import PastEvents from "./components/PastEvents";
 import Teams from "./components/Teams";
-import Members from "./components/Members";
 import Profile from "./components/Profile";
 import Signin from "./components/Signin";
-import PopUpForm from "./components/PopUpForm";
 import ForgotPassword from "./components/ForgotPassword";
 
 const App = () => {
@@ -159,8 +157,7 @@ const App = () => {
 
   return (
     // This top-level Box handles the full-screen layout.
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      <PopUpForm user={user} setUser={setUser} />
+    <Grid container flexWrap="nowrap">
       <SideBarManager
         isMobile={isMobile}
         open={open}
@@ -169,7 +166,7 @@ const App = () => {
         setLastButton={setLastButton}
       />
       {/* This Box will handle the main content and take up all remaining space. */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <Grid container item direction="column" flexGrow={1}>
         <TopBar
           isMobile={isMobile}
           handleClickOpen={handleClickOpen}
@@ -179,32 +176,39 @@ const App = () => {
           setLastButton={setLastButton}
         />
         {/* This inner Box contains the routes and will grow to fill the remaining vertical space. */}
-        <Box sx={{ flexGrow: 1, overflowY: "auto", backgroundColor: "#f1f5f9"}}>
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={
-                <Dashboard
-                  isNarrow={isNarrow}
-                  setLastButton={setLastButton}
-                  user={user}
-                />
-              }
-            />
-            <Route path="/events" element={<Events 
-                  isNarrow={isNarrow}
-                  setLastButton={setLastButton}
-                  user={user}
-              />} />
-            <Route path="/pastevents" element={<PastEvents />} />
-            <Route path="/teams" element={<Teams />} />
-            <Route path="/members" element={<Members />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </Box>
-      </Box>
-    </Box>
+        <Grid item style={{ scrollBehavior: "smooth" }}>
+          <Box
+              height="calc(100vh)"
+              style={{
+                overflowY: "scroll",
+                backgroundColor: "#f1f5f9",
+              }}
+            >
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={
+                  <Dashboard
+                    isNarrow={isNarrow}
+                    setLastButton={setLastButton}
+                    user={user}
+                  />
+                }
+              />
+              <Route path="/events" element={<Events 
+                    isNarrow={isNarrow}
+                    setLastButton={setLastButton}
+                    user={user}
+                />} />
+              <Route path="/pastevents" element={<PastEvents />} />
+              <Route path="/teams" element={<Teams />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -82,8 +82,7 @@ const TopBar = ({
       container
       item
       wrap="no-wrap"
-      xs={12} /* Changed xs from 0.5 to 12 */
-      justifyContent="flex-end" /* Added this prop to the main container */
+      direction="column"
       style={{
         backgroundColor: "white",
       }}
@@ -99,32 +98,34 @@ const TopBar = ({
           </Button>
         </Grid>
       ) : null}
-      <Grid item>
-        <MenuModal
-          open={open}
-          toggleModal={toggleModal}
-          closeModal={closeModal}
-          navigate={navigate}
-          logout={logout}
-        />
-      </Grid>
-      {!isNarrow ? (
+      <Grid container item justifyContent="flex-end">
         <Grid item>
-          <Button
-            variant="text"
-            style={{ margin: "10px" }}
-            onClick={(event) => {
-              event.preventDefault();
-              setLastButton("profile");
-              navigate("/profile");
-            }}
-          >
-            <Avatar style={{ width: "30px", height: "30px" }}>
-              <img src={user.profile} alt={user.name} />
-            </Avatar>
-          </Button>
+          <MenuModal
+            open={open}
+            toggleModal={toggleModal}
+            closeModal={closeModal}
+            navigate={navigate}
+            logout={logout}
+          />
         </Grid>
+        {!isNarrow ? (
+          <Grid item>
+            <Button
+              variant="text"
+              style={{ margin: "10px" }}
+              onClick={(event) => {
+                event.preventDefault();
+                setLastButton("profile");
+                navigate("/profile");
+              }}
+            >
+              <Avatar style={{ width: "30px", height: "30px" }}>
+                <img src={user.profile} alt={user.name} />
+              </Avatar>
+            </Button>
+          </Grid>
       ) : null}
+        </Grid>
     </Grid>
   );
 };
