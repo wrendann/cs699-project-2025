@@ -10,7 +10,7 @@ const apiClient = axios.create({
 // Request Interceptor
 apiClient.interceptors.request.use(config => {
   // Get the token from local storage (or wherever you store it)
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem('IITBTeamFinderUserToken');
   
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

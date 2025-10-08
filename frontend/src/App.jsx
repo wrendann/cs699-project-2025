@@ -135,7 +135,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       handleResize();
-      if(user !== 'rootuser') // --PLEASE REMOVE THIS IN FINAL BUILD ---- ONLY FOR TESTING -------------------------
+      if(user.email !== 'admin@admin') // --PLEASE REMOVE THIS IN FINAL BUILD ---- ONLY FOR TESTING -------------------------
         profileUpdate();
     }
   }, []);
@@ -179,7 +179,7 @@ const App = () => {
           setLastButton={setLastButton}
         />
         {/* This inner Box contains the routes and will grow to fill the remaining vertical space. */}
-        <Box sx={{ flexGrow: 1, overflowY: "auto", backgroundColor: "#f1f5f9" }}>
+        <Box sx={{ flexGrow: 1, overflowY: "auto", backgroundColor: "#f1f5f9"}}>
           <Routes>
             <Route
               exact
@@ -192,7 +192,11 @@ const App = () => {
                 />
               }
             />
-            <Route path="/events" element={<Events />} />
+            <Route path="/events" element={<Events 
+                  isNarrow={isNarrow}
+                  setLastButton={setLastButton}
+                  user={user}
+              />} />
             <Route path="/pastevents" element={<PastEvents />} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/members" element={<Members />} />
