@@ -43,8 +43,21 @@ export const getEvents = async () => {
         end_date: '2025-11-20T15:00:00',
         description: 'Meeting to finalize the theme, catering, and entertainment for the annual company holiday celebration. All committee members must attend and provide final vendor quotes.',
         },
+        {
+        id: 'e6',
+        name: 'Q3 Financial Review and Budget Planning',
+        location: '14th Floor, Boardroom A',
+        start_date: '2024-11-15T10:00:00',
+        end_date: '2024-11-15T11:30:00',
+        description: 'A mandatory review of the third quarter financial performance, including budget forecasts and departmental spending analysis. Please bring your departmental expense reports and be prepared to discuss Q4 projections.',
+        },
     ];
     
     const response = await apiClient.get(`/events/`);
     return response.data;
+}
+
+export const addEvent = (newEvent) => {
+    console.log('adding new event')
+    console.log(newEvent)
 }

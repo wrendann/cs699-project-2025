@@ -82,13 +82,14 @@ const TopBar = ({
       container
       item
       wrap="no-wrap"
-      direction="column"
+      direction="row"
       style={{
         backgroundColor: "white",
       }}
+      justifyContent="space-between"
     >
-      {isMobile ? (
         <Grid item>
+          {isMobile ? (
           <Button
             variant="text"
             onClick={handleClickOpen}
@@ -96,8 +97,8 @@ const TopBar = ({
           >
             <DehazeIcon style={{ width: "30px", height: "30px" }} />
           </Button>
+          ) : null}
         </Grid>
-      ) : null}
       <Grid container item justifyContent="flex-end">
         <Grid item>
           <MenuModal

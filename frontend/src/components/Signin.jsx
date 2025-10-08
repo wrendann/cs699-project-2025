@@ -17,7 +17,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 const onEmailSignin = async (credentials, setUser, setErrorMessage) => {
   try {
     const response = await signInWithEmail({ credentials: credentials });
-    setUser(response.user);
+    setUser(response.user.username);
     window.localStorage.setItem("IITBTeamFinderUser", JSON.stringify(response.user.username));
     window.localStorage.setItem(
       "IITBTeamFinderUserToken",
@@ -93,6 +93,7 @@ const EmailLogIn = ({
           </Grid>
           <Grid item>
             <TextField
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="mail@gmail.com"
@@ -367,6 +368,7 @@ const EmailSignUp = ({
         <Grid item>
           <TextField
             value={email}
+            type="email"
             onChange={(e) => setEmail(e.target.value)}
             placeholder="name@email.com"
             sx={{

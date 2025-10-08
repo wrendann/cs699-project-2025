@@ -133,7 +133,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       handleResize();
-      if(user.email !== 'admin@admin') // --PLEASE REMOVE THIS IN FINAL BUILD ---- ONLY FOR TESTING -------------------------
+      if(user !== 'admin') // --PLEASE REMOVE THIS IN FINAL BUILD ---- ONLY FOR TESTING -------------------------
         profileUpdate();
     }
   }, []);

@@ -1,9 +1,13 @@
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 import EventMiniBox from "./EventMiniBox";
+
 import { useNavigate } from "react-router-dom";
 
 import { getEvents } from "../services/events";
+import AddNewEvent from "./AddNewEvent";
 import { useState, useEffect } from "react";
 
 const fetchEvents = async(setEvents) => {
@@ -22,6 +26,7 @@ const fetchEvents = async(setEvents) => {
 
 const Events = ({ setLastButton, user }) => {
   const [events, setEvents] = useState([]);
+  const [addressFormOpen, setAddressFormOpen] = useState(false);
   useEffect(() => {
     fetchEvents(setEvents);
   }, [])
@@ -53,6 +58,15 @@ const Events = ({ setLastButton, user }) => {
           >
             {events.map(e => <EventMiniBox eventInfo={e} />)}
           </Grid>
+
+          <Fab color="primary" aria-label="add" onClick={(e) => {
+            e.preventDefault();
+            setAddressFormOpen(true);
+          }}
+             sx={{position: "fixed", bottom: 16, right: 16}}>
+            <AddIcon />
+          </Fab>
+          <AddNewEvent open={addressFormOpen} setOpen={setAddressFormOpen} />
       </Box>
     </Grid>
   );
