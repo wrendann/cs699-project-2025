@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'http://localhost:8000/',
   headers: {
     'Content-Type': 'application/json',
   }
@@ -10,8 +10,7 @@ const apiClient = axios.create({
 // Request Interceptor
 apiClient.interceptors.request.use(config => {
   // Get the token from local storage (or wherever you store it)
-  const token = localStorage.getItem('IITBTeamFinderUserToken');
-  
+  const token = JSON.parse(localStorage.getItem('IITBTeamFinderUserToken'));
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

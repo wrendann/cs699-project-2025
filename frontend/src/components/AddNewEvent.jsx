@@ -16,7 +16,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 const AddNewEvent = ({open, setOpen}) => {
 
-  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -29,9 +29,9 @@ const AddNewEvent = ({open, setOpen}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newEvent = {title, location, start_date: startDate.toDate(), end_date: endDate.toDate(), description};
+    const newEvent = {name, location, start_date: startDate.toDate(), end_date: endDate.toDate(), description};
     addEvent(newEvent);
-    setTitle('');
+    setName('');
     setLocation('');
     setStartDate(null);
     setEndDate(null);
@@ -54,8 +54,8 @@ const AddNewEvent = ({open, setOpen}) => {
               type="text"
               fullWidth
               variant="standard"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <TextField
               required
