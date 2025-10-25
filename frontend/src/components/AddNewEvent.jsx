@@ -29,7 +29,7 @@ const AddNewEvent = ({open, setOpen}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newEvent = {name, location, start_date: startDate.toDate(), end_date: endDate.toDate(), description};
+    const newEvent = {name: name, location: location, start_date: startDate.toDate(), end_date: endDate.toDate(), description};
     addEvent(newEvent);
     setName('');
     setLocation('');
