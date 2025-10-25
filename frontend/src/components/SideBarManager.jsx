@@ -8,7 +8,6 @@ import DashboardIcon from "../assets/sidebar/dashboardicon.png";
 import EventsIcon from "../assets/sidebar/events.png";
 import PastEventsIcon from "../assets/sidebar/pastevents.png";
 import TeamsIcon from "../assets/sidebar/teams.png";
-import MembersIcon from "../assets/sidebar/members.png";
 import ProfileIcon from "../assets/sidebar/profile.png";
 import Logo from "../assets/sidebar/logo.png";
 

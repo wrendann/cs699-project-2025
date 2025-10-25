@@ -56,7 +56,7 @@ const Events = ({ setLastButton, user }) => {
             marginLeft: "10px",
           }}
           >
-            {events.map(e => <EventMiniBox eventInfo={e} />)}
+            {events.map(e => <EventMiniBox eventInfo={e} setLastButton={setLastButton}/>)}
           </Grid>
 
           <Fab color="primary" aria-label="add" onClick={(e) => {

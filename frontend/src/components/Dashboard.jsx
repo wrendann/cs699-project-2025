@@ -87,7 +87,7 @@ const WelcomeEventsBox = ({ setLastButton, user, forceScrollRerender }) => {
             <Typography variant="h6" fontFamily="DM Sans" fontWeight="500">
               Latest Events
             </Typography>
-            {latestEvents.map(e => <EventMiniBox eventInfo={e} />)}
+            {latestEvents.map(e => <EventMiniBox eventInfo={e} setLastButton={setLastButton}/>)}
           </Grid>
       </Box>
     </Grid>

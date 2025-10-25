@@ -6,8 +6,10 @@ import {
     Button,
     Grid 
 } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+
 
 const formatDate = (dateString) => {
     const options = { month: 'short', day: 'numeric' };
@@ -15,13 +17,17 @@ const formatDate = (dateString) => {
 };
 
 
-const EventMiniBox = ({ eventInfo }) => {
+const EventMiniBox = ({ eventInfo, setLastButton }) => {
+
+    const navigate = useNavigate();
 
   const startDateFormatted = formatDate(eventInfo.start_date);
   const dateSummary = startDateFormatted.split(',')[0]; 
   
   const handleViewDetails = (e) => {
     e.stopPropagation(); 
+    setLastButton('events');
+    navigate(`/events/${eventInfo.id}`);
   };
 
   return (

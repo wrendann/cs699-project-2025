@@ -9,6 +9,7 @@ import { updateProfile } from "./services/profile";
 
 import Dashboard from "./components/Dashboard";
 import Events from "./components/Events";
+import EventPage from "./components/EventPage";
 import PastEvents from "./components/PastEvents";
 import Teams from "./components/Teams";
 import Profile from "./components/Profile";
@@ -30,14 +31,17 @@ const App = () => {
   );
 
   useEffect(() => {
+    let pathname = location.pathname
     if (
       !user &&
-      !location.pathname.startsWith("/verify") &&
-      !location.pathname.startsWith("/forgot")
+      !pathname.startsWith("/verify") &&
+      !pathname.startsWith("/forgot")
     ) {
       navigate("/signin");
     }
-    switch (location.pathname) {
+    if(pathname.startsWith("/events"))
+      pathname = "/events"
+    switch (pathname) {
       case "/":
         setLastButton("dashboard");
         break;
@@ -64,8 +68,8 @@ const App = () => {
         break;
       default:
         if (
-          !location.pathname.startsWith("/verify") &&
-          !location.pathname.startsWith("/forgot")
+          !pathname.startsWith("/verify") &&
+          !pathname.startsWith("/forgot")
         ) {
           setLastButton("dashboard");
           navigate("/");
@@ -133,8 +137,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       handleResize();
-      if(user !== 'admin') // --PLEASE REMOVE THIS IN FINAL BUILD ---- ONLY FOR TESTING -------------------------
-        profileUpdate();
+      //profileUpdate(); --- FUNCTION NOT IMPLEMENTED, KEEPS PROFILE DETAILS UPDATED
     }
   }, []);
 
@@ -201,6 +204,16 @@ const App = () => {
                     setLastButton={setLastButton}
                     user={user}
                 />} />
+              <Route 
+                path="/events/:eventId" 
+                element={
+                  <EventPage 
+                    isNarrow={isNarrow}
+                    setLastButton={setLastButton}
+                    user={user}
+                  />
+                } 
+              />
               <Route path="/pastevents" element={<PastEvents />} />
               <Route path="/teams" element={<Teams />} />
               <Route path="/profile" element={<Profile />} />
