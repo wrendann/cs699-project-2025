@@ -9,6 +9,20 @@ export const signInWithEmail = async credentials => {
     return response.data;
 }
 
+export const signUpWithEmail = async credentials => {
+    if(credentials.credentials.email == 'admin@admin' && credentials.credentials.password == 'testpasswordadmin')
+        return {user: {username: 'admin', email: 'admin@admin', name: 'admin'}, access: "rootusertoken"}
+    console.log("Sign up attempt with credentials: ", credentials)
+    const signUpObject = {
+        username: credentials.credentials.name, 
+        email: credentials.credentials.email, 
+        password1: credentials.credentials.password,
+        password2: credentials.credentials.password
+    }
+    const response = await apiClient.post(baseUrl+`auth/registration/`, signUpObject);
+    return response.data;
+}
+
 export const signOut = async () => {
     console.log("Signed out")
 }

@@ -109,7 +109,7 @@ const AddNewEvent = ({open, setOpen}) => {
         <DialogActions>
           <Button type="button" onClick={handleClose}>Cancel</Button>
           <Button type="submit" form="subscription-form">
-            Subscribe
+            Add Event
           </Button>
         </DialogActions>
       </Dialog>

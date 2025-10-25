@@ -57,7 +57,7 @@ const WelcomeEventsBox = ({ setLastButton, user, forceScrollRerender }) => {
           }}
         >
           <Typography variant="h5" fontFamily="DM Sans" fontWeight="500">
-            Welcome, {user.name}!
+            Welcome, {user}!
           </Typography>
         </Grid>
       </Box>

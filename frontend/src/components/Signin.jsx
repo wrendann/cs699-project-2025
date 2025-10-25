@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signInWithEmail } from "../services/users";
+import { signInWithEmail, signUpWithEmail } from "../services/users";
 import { requestReset } from "../services/resetPassword";
 import {
   Button,
@@ -16,7 +16,11 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const onEmailSignin = async (credentials, setUser, setErrorMessage) => {
   try {
-    const response = await signInWithEmail({ credentials: credentials });
+    let response;
+    if(credentials.signUp)
+      response = await signUpWithEmail({ credentials: credentials });
+    else
+      response = await signInWithEmail({ credentials: credentials });
     setUser(response.user.username);
     window.localStorage.setItem("IITBTeamFinderUser", JSON.stringify(response.user.username));
     window.localStorage.setItem(
@@ -329,7 +333,8 @@ const EmailSignUp = ({
     const credentials = {
       name,
       email,
-      password
+      password,
+      signUp: true
     };
     onEmailSignin(credentials, setUser, setErrorMessage);
   };
