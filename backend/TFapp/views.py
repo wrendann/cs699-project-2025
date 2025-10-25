@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from rest_framework import viewsets, permissions
 from .models import Event, Team, Membership, User
-from .serializers import EventSerializer, TeamSerializer, MembershipSerializer, PublicUserProfileSerializer
+from .serializers import EventSerializer, TeamSerializer, MembershipSerializer, PublicUserProfileSerializer, EventDetailSerializer, TeamDetailSerializer
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
@@ -16,6 +16,17 @@ class EventViewSet(viewsets.ModelViewSet):
         print(self.request.user)
         # serializer.save(owner=self.request.user)
         return super().perform_create(serializer)
+    
+    def get_serializer_class(self):
+        """
+        Choose the serializer based on the action.
+        """
+        if self.action == 'retrieve':
+            # For the detail view (e.g., /api/events/<id>/)
+            return EventDetailSerializer
+        
+        # For the list view (e.g., /api/events/)
+        return EventSerializer
 
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
@@ -26,7 +37,15 @@ class TeamViewSet(viewsets.ModelViewSet):
         print(self.request.user)
         serializer.save(owner=self.request.user)
 
-
+    def get_serializer_class(self):
+        """
+        Use TeamDetailSerializer for 'retrieve' (detail) view
+        and TeamListSerializer for 'list' view.
+        """
+        if self.action == 'retrieve':
+            return TeamDetailSerializer
+        return TeamSerializer
+    
 class MembershipViewSet(viewsets.ModelViewSet):
     queryset = Membership.objects.all()
     serializer_class = MembershipSerializer
