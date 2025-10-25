@@ -48,3 +48,22 @@ class UserDetailsSerializer(serializers.ModelSerializer):
         # Define the fields you want to include in the response
         fields = ('pk', 'username', 'email', 'first_name', 'last_name')
         read_only_fields = ('email', ) # Email should not be updatable through this serializer
+
+class PublicUserProfileSerializer(serializers.ModelSerializer):
+    """
+    Serializer for public-facing user profile data.
+    """
+    class Meta:
+        model = UserModel
+        # List only the fields that are safe to be publicly visible
+        fields = [
+            'id', 
+            'username', 
+            'bio', 
+            'skills', 
+            'interests', 
+            'location', 
+            'profile_picture',
+            'date_joined' # 'date_joined' is also a common safe field
+        ]
+        read_only_fields = fields # Ensure all fields are read-only

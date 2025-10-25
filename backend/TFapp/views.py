@@ -1,18 +1,16 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.http import HttpResponse
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
-from .models import Event, Team, Membership
-from .serializers import EventSerializer, TeamSerializer, MembershipSerializer
+from rest_framework import viewsets, permissions
+from .models import Event, Team, Membership, User
+from .serializers import EventSerializer, TeamSerializer, MembershipSerializer, PublicUserProfileSerializer
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         print(self.request.user)
@@ -22,7 +20,7 @@ class EventViewSet(viewsets.ModelViewSet):
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer: TeamSerializer):
         print(self.request.user)
@@ -38,6 +36,24 @@ class MembershipViewSet(viewsets.ModelViewSet):
 def say_hello(request):
     return HttpResponse('Hello world')
 
+
+class UserProfileViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    A viewset for viewing user profiles.
+    
+    Provides:
+    - `list` action: GET /api/users/
+    - `retrieve` action: GET /api/users/<uuid:id>/
+    """
+    queryset = User.objects.all().order_by('username')
+    serializer_class = PublicUserProfileSerializer
+    
+    # Specify the lookup field, as your PK is 'id' (a UUID)
+    lookup_field = 'id' 
+    
+    # Set permissions: e.g., only logged-in users can see profiles.
+    # Use IsAuthenticatedOrReadOnly if you want anonymous users to see profiles.
+    permission_classes = [permissions.IsAuthenticated]
 
 # def loginPage(request):
 #     if request.method == 'POST':

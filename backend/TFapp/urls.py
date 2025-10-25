@@ -13,6 +13,7 @@ router = DefaultRouter()
 router.register(r'events', EventViewSet, basename='event')
 router.register(r'teams', TeamViewSet, basename='team')
 router.register(r'memberships', MembershipViewSet, basename='membership')
+router.register(r'users', views.UserProfileViewSet, basename='userprofile')
 
 # HTTP Method	URL Pattern	Action/Description
 # GET	/events/	List all Event objects.
