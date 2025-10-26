@@ -14,3 +14,10 @@ export const addEvent = async (newEvent) => {
     const response = await apiClient.post("TFapp/events/", newEvent);
     return response.data;
 }
+
+export const addTeam = async (eventID, newTeam) => {
+    console.log(`Adding New Team to event ${eventID}`);
+    console.log(newTeam);
+    const response = await apiClient.post(`TFapp/events/${eventID}/team`, newTeam);
+    return response.data;
+}

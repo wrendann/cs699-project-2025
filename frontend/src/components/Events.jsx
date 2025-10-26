@@ -26,7 +26,7 @@ const fetchEvents = async(setEvents) => {
 
 const Events = ({ setLastButton, user }) => {
   const [events, setEvents] = useState([]);
-  const [addressFormOpen, setAddressFormOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
   useEffect(() => {
     fetchEvents(setEvents);
   }, [])
@@ -61,12 +61,12 @@ const Events = ({ setLastButton, user }) => {
 
           <Fab color="primary" aria-label="add" onClick={(e) => {
             e.preventDefault();
-            setAddressFormOpen(true);
+            setFormOpen(true);
           }}
              sx={{position: "fixed", bottom: 16, right: 16}}>
             <AddIcon />
           </Fab>
-          <AddNewEvent open={addressFormOpen} setOpen={setAddressFormOpen} />
+          <AddNewEvent open={formOpen} setOpen={setFormOpen} />
       </Box>
     </Grid>
   );

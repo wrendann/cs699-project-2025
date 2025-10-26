@@ -7,12 +7,14 @@ import {
     Stack,
     CircularProgress
 } from '@mui/material';
+import Fab from '@mui/material/Fab';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { getEvent } from '../services/events'; 
 
 import TeamDetailBox from './TeamDetailBox'; 
+import AddNewTeam from './AddNewTeam';
 const formatDateTime = (dateString) => {
     if (!dateString) return 'N/A';
     const options = {
@@ -73,6 +75,7 @@ const fetchEvent = async(eventId, setEventDetails, setIsLoading) => {
 const EventPage = () => {
     const { eventId } = useParams();
     const [eventDetails, setEventDetails] = useState({ teams: [] }); 
+    const [formOpen, setFormOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -183,6 +186,14 @@ const EventPage = () => {
                         )}
                     </Grid>
                 </Box>
+                <Fab color="primary" aria-label="add" onClick={(e) => {
+                    e.preventDefault();
+                    setFormOpen(true);
+                }}
+                    sx={{position: "fixed", bottom: 16, right: 16, borderRadius: '8px', width: '150px'}}>
+                    <pre>Create New Team</pre>
+                </Fab>
+                <AddNewTeam eventId={eventId} open={formOpen} setOpen={setFormOpen} />
             </Box>
         </Grid>
     );
