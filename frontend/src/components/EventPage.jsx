@@ -30,34 +30,6 @@ const formatDateTime = (dateString) => {
 
 const fetchEvent = async(eventId, setEventDetails, setIsLoading) => {
     setIsLoading(true);
-    // setEventDetails({
-    //     "id": "9693a050-f293-4496-8f2a-8e4c2bf60c06",
-    //     "name": "Event Name",
-    //     "description": "efwjbibisbvs",
-    //     "start_date": "2025-10-27T15:55:00Z",
-    //     "end_date": "2025-10-29T12:00:00Z",
-    //     "location": "efw31r1r3rf32",
-    //     "created_at": "2025-10-25T17:28:32.877595Z",
-    //     "teams": [{
-    //         "id": "23414",
-    //         "name": "Team Synos",
-    //         "description": "Always working",
-    //         "max_size": 5,
-    //         "required_skills": "gumption",
-    //         "is_open": true,
-    //         "created_at": "2025-10-25T17:28:32.877595Z"
-    //     },
-    //         {
-    //         "id": "234414",
-    //         "name": "Team Workhorse",
-    //         "description": "Never working",
-    //         "max_size": 21,
-    //         "required_skills": "javascript",
-    //         "is_open": true,
-    //         "created_at": "2025-10-25T17:28:32.877595Z"
-    //     }
-    //     ]
-    // })
     try
     {
         const eventInfo = await getEvent(eventId); 
@@ -193,7 +165,8 @@ const EventPage = () => {
                     sx={{position: "fixed", bottom: 16, right: 16, borderRadius: '8px', width: '150px'}}>
                     <pre>Create New Team</pre>
                 </Fab>
-                <AddNewTeam eventId={eventId} open={formOpen} setOpen={setFormOpen} />
+                <AddNewTeam eventId={eventId} open={formOpen} setOpen={setFormOpen} 
+                    eventDetails={eventDetails} setEventDetails={setEventDetails}/>
             </Box>
         </Grid>
     );

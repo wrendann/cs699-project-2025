@@ -32,7 +32,7 @@ const SideBarButton = ({
   };
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} sx={{ width:"100%" }}>
       <Button
         disableTouchRipple
         size="large"
@@ -52,7 +52,7 @@ const SideBarButton = ({
           color: lastButton === name ? "black" : "rgba(0,0,0,0.8)",
           position: "relative",
           left: "10px",
-          width: "259px",
+          width: "90%",
           border: "none",
           fontSize: "20px",
           justifyContent: "flex-start",

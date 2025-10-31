@@ -10,7 +10,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const AddNewTeam = ({open, setOpen, eventId}) => {
+const AddNewTeam = ({open, setOpen, eventId, eventDetails, setEventDetails}) => {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -21,15 +21,23 @@ const AddNewTeam = ({open, setOpen, eventId}) => {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const newTeam = {name, description, max_size: maxSize, required_skills: requiredSkills};
-    addTeam(eventId, newTeam);
-    setName('');
-    setDescription('');
-		setMaxSize(NaN);
-		setRequiredSkills('');
-    handleClose();
+  const handleSubmit = async (event) => {
+    try{
+      event.preventDefault();
+      const newTeam = {name, description, max_size: maxSize, required_skills: requiredSkills, event: eventId};
+      setName('');
+      setDescription('');
+      setMaxSize(NaN);
+      setRequiredSkills('');
+      handleClose();
+      const newTeamRes = await addTeam(newTeam);
+      setEventDetails({
+        ...eventDetails,
+        teams: [...eventDetails.teams, newTeamRes]
+      });
+    } catch (error) {
+      console.error("Error adding new team:", error);
+    }
   };
 
   return (

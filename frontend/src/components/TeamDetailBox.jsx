@@ -13,7 +13,7 @@ const TeamDetailBox = ({ teamInfo }) => {
         console.log(`Join button clicked for team: ${teamInfo.name}`);
     };
 
-    const currentSize = teamInfo.current_size || 0; 
+    const currentSize = Math.max(teamInfo.current_size, 1); 
     const isFull = currentSize >= teamInfo.max_size;
     const isDisabled = !teamInfo.is_open || isFull;
 
