@@ -218,9 +218,9 @@ const TeamPage = ({
                                 </Button>
                             )}
 
-                            {!isOwner && !isMember && !hasPendingRequest && is_open && !is_full && (
+                            {!isMember && !hasPendingRequest && is_open && !is_full && (
                                 <Button variant="contained" color="primary" onClick={handleRequestJoin}>
-                                    <PersonAddIcon sx={{ mr: 1 }} /> Request to Join
+                                    <PersonAddIcon sx={{ mr: 1 }} /> {isOwner ? 'Join Team' : 'Request to Join'}
                                 </Button>
                             )}
                             
