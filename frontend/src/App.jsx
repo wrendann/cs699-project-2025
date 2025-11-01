@@ -15,6 +15,7 @@ import Teams from "./components/Teams";
 import Profile from "./components/Profile";
 import Signin from "./components/Signin";
 import ForgotPassword from "./components/ForgotPassword";
+import TeamPage from "./components/TeamPage";
 
 const App = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
@@ -41,6 +42,8 @@ const App = () => {
     }
     if(pathname.startsWith("/events"))
       pathname = "/events"
+    if(pathname.startsWith("/teams"))
+      pathname = "/teams"
     switch (pathname) {
       case "/":
         setLastButton("dashboard");
@@ -216,8 +219,12 @@ const App = () => {
               />
               <Route path="/pastevents" element={<PastEvents />} />
               <Route path="/teams" element={<Teams />} />
+              <Route path="/teams/:teamID" element={<TeamPage 
+                    user={user}
+                />} />
               <Route path="/profile" element={<Profile />} />
             </Routes>
+            <Box sx={{height: "20px"}}/> {/* Spacer at the bottom */}
           </Box>
         </Grid>
       </Grid>

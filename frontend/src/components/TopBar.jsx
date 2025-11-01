@@ -121,7 +121,7 @@ const TopBar = ({
               }}
             >
               <Avatar style={{ width: "30px", height: "30px" }}>
-                <img src={user.profile} alt={user.name} />
+                <img src={user?.profile} alt={user?.name} />
               </Avatar>
             </Button>
           </Grid>

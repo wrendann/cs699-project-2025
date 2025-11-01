@@ -44,7 +44,7 @@ const fetchEvent = async(eventId, setEventDetails, setIsLoading) => {
     } 
 }
 
-const EventPage = () => {
+const EventPage = ({setLastButton}) => {
     const { eventId } = useParams();
     const [eventDetails, setEventDetails] = useState({ teams: [] }); 
     const [formOpen, setFormOpen] = useState(false);
@@ -146,7 +146,7 @@ const EventPage = () => {
                         {teams.length > 0 ? (
                             teams.map(team => (
                                 <Grid item xs={12} key={team.id}>
-                                    <TeamDetailBox teamInfo={team} />
+                                    <TeamDetailBox teamInfo={team} setLastButton={setLastButton}/>
                                 </Grid>
                             ))
                         ) : (

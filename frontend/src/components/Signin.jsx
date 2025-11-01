@@ -21,8 +21,8 @@ const onEmailSignin = async (credentials, setUser, setErrorMessage) => {
       response = await signUpWithEmail({ credentials: credentials });
     else
       response = await signInWithEmail({ credentials: credentials });
-    setUser(response.user.username);
-    window.localStorage.setItem("IITBTeamFinderUser", JSON.stringify(response.user.username));
+    setUser(response.user);
+    window.localStorage.setItem("IITBTeamFinderUser", JSON.stringify(response.user));
     window.localStorage.setItem(
       "IITBTeamFinderUserToken",
       JSON.stringify(response.access)

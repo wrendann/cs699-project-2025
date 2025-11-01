@@ -5,15 +5,20 @@ import {
     Stack,
     Button,
 } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 import PeopleIcon from '@mui/icons-material/People';
 
-const TeamDetailBox = ({ teamInfo }) => {
+const TeamDetailBox = ({ teamInfo, setLastButton }) => {
+
+    const navigate = useNavigate();
+
     const handleJoin = (e) => {
         e.preventDefault();
-        console.log(`Join button clicked for team: ${teamInfo.name}`);
+        setLastButton('events');
+        navigate(`/teams/${teamInfo.id}`);
     };
 
-    const currentSize = Math.max(teamInfo.current_size, 1); 
+    const currentSize = Math.max(teamInfo.current_size, 0); 
     const isFull = currentSize >= teamInfo.max_size;
     const isDisabled = !teamInfo.is_open || isFull;
 
