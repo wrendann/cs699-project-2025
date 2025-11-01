@@ -45,10 +45,14 @@ class TeamViewSet(viewsets.ModelViewSet):
         if Membership.objects.filter(team=team, user=request.user).exists():
             return Response({'error': 'You are already a member or have a pending request.'}, status=status.HTTP_400_BAD_REQUEST)
         
+        membership_status=Membership.MemberStatus.PENDING
+        if IsTeamOwner().has_object_permission(request, self, team):
+            membership_status = Membership.MemberStatus.ACCEPTED
+
         membership = Membership.objects.create(
             team=team, 
-            user=request.user, 
-            status=Membership.MemberStatus.PENDING
+            user=request.user,
+            status=membership_status
         )
         serializer = MembershipSerializer(membership, context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -61,12 +65,16 @@ class TeamViewSet(viewsets.ModelViewSet):
         """
         team = self.get_object()
         user_id = request.data.get('user_id')
+        user_name = request.data.get('user_name')
         
-        if not user_id:
-            return Response({'error': 'user_id is required.'}, status=status.HTTP_400_BAD_REQUEST)
+        if not user_id and not user_name:
+            return Response({'error': 'user_id or user_name is required.'}, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            user_to_invite = User.objects.get(id=user_id)
+            if user_id:
+                user_to_invite = User.objects.get(id=user_id)
+            else:
+                user_to_invite = User.objects.get(username=user_name)
         except User.DoesNotExist:
             return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -74,10 +82,15 @@ class TeamViewSet(viewsets.ModelViewSet):
         if Membership.objects.filter(team=team, user=user_to_invite).exists():
             return Response({'error': 'This user is already a member or has a pending status.'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+        membership_status=Membership.MemberStatus.INVITED
+        if user_to_invite == team.owner:
+            membership_status = Membership.MemberStatus.ACCEPTED
+
         membership = Membership.objects.create(
             team=team,
             user=user_to_invite,
-            status=Membership.MemberStatus.INVITED
+            status=membership_status
         )
         serializer = MembershipSerializer(membership, context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)

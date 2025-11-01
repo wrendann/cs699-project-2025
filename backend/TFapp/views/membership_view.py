@@ -140,8 +140,6 @@ class MembershipViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         membership.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    # --- Actions for Member Itself ---
-
     @action(detail=False, methods=['post'])
     def leave(self, request, team_pk=None):
         """
@@ -149,8 +147,8 @@ class MembershipViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         Does not expect a body.
         """
         team = self._get_team(team_pk)
-        if team.owner == request.user:
-            return Response({'error': 'Owner cannot leave. Delete team or transfer ownership.'}, status=status.HTTP_400_BAD_REQUEST)
+        # if team.owner == request.user:
+        #     return Response({'error': 'Owner cannot leave. Delete team or transfer ownership.'}, status=status.HTTP_400_BAD_REQUEST)
             
         # Find the membership for the *requesting user*
         membership = self._get_membership(team_pk, request.user.id)
