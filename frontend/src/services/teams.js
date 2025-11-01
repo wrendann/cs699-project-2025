@@ -41,8 +41,8 @@ export const rejectTeamInvite = async (teamID) => {
     return response.data;
 }
 
-export const inviteTeamMember = async (teamID, userID) => {
-    const response = await apiClient.post(`TFapp/teams/${teamID}/invite/`, {user_id: userID});
+export const inviteTeamMember = async (teamID, userName) => {
+    const response = await apiClient.post(`TFapp/teams/${teamID}/invite/`, {user_name: userName});
     return response.data;
 }
 
