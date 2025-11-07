@@ -68,7 +68,10 @@ class TeamDetailSerializer(serializers.ModelSerializer):
     # Our two custom member lists
     approved_members = serializers.SerializerMethodField()
     pending_requests = serializers.SerializerMethodField()
-    rejected_users = serializers.SerializerMethodField()
+    pending_invites = serializers.SerializerMethodField()
+
+    has_been_rejected = serializers.SerializerMethodField()
+    has_been_invited = serializers.SerializerMethodField()
 
     class Meta:
         model = Team
@@ -76,9 +79,11 @@ class TeamDetailSerializer(serializers.ModelSerializer):
             'id', 'name', 'description', 'event', 'owner', 
             'max_size', 'current_size', 'is_full', 'required_skills',
             'is_open', 'created_at',
-            'approved_members',  # Our custom field
-            'pending_requests',   # Our conditional custom field
-            'rejected_users'
+            'approved_members',
+            'pending_requests',
+            'pending_invites',
+            'has_been_rejected',
+            'has_been_invited'
         ]
 
     def get_approved_members(self, obj):
@@ -132,17 +137,75 @@ class TeamDetailSerializer(serializers.ModelSerializer):
         # Otherwise, return an empty list
         return []
     
-    def get_rejected_users(self, obj):
+    def get_pending_invites(self, obj):
         """
-        Gets all 'REJECTED' members for this team.
-        'obj' is the Team instance.
+        Gets all 'INVITED' members, but only if the user making
+        the request is already an accepted member or the owner.
         """
-        rejected_memberships = obj.members.filter(
-            status=Membership.MemberStatus.REJECTED
-        )
-        # Serialize the list of Membership objects
-        return MembershipSerializer(rejected_memberships, many=True).data
+        # Get the request object from the serializer's context
+        request = self.context.get('request')
+
+        # If we can't get a user, return an empty list
+        if not request or not hasattr(request, 'user') or not request.user.is_authenticated:
+            return []
+
+        user = request.user
+        
+        # Permission check: Is the current user the owner?
+        is_owner = (obj.owner == user)
+        
+        # Permission check: Is the current user an accepted member?
+        is_accepted_member = obj.members.filter(
+            user=user, 
+            status=Membership.MemberStatus.ACCEPTED
+        ).exists()
+
+        # If they are the owner OR an accepted member, show pending invites
+        if is_owner or is_accepted_member:
+            invited_memberships = obj.members.filter(
+                status=Membership.MemberStatus.INVITED
+            )
+            return MembershipSerializer(invited_memberships, many=True).data
+
+        # Otherwise, return an empty list
+        return []
     
+    def get_has_been_rejected(self, obj):
+        """
+        return true if the requesting user has been rejected from this team.
+        """
+        request = self.context.get('request')
+
+        # If we can't get a user, return an empty list
+        if not request or not hasattr(request, 'user') or not request.user.is_authenticated:
+            return False
+
+        user = request.user
+        is_rejected_member = obj.members.filter(
+            user=user, 
+            status=Membership.MemberStatus.REJECTED
+        ).exists()
+
+        return is_rejected_member
+    
+    def get_has_been_invited(self, obj):
+        """
+        return true if the requesting user has been invited to this team.
+        """
+        request = self.context.get('request')
+
+        # If we can't get a user, return an empty list
+        if not request or not hasattr(request, 'user') or not request.user.is_authenticated:
+            return False
+
+        user = request.user
+        is_invited_member = obj.members.filter(
+            user=user, 
+            status=Membership.MemberStatus.INVITED
+        ).exists()
+
+        return is_invited_member
+            
 class MembershipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Membership

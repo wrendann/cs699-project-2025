@@ -77,6 +77,11 @@ class TeamViewSet(viewsets.ModelViewSet):
                 user_to_invite = User.objects.get(username=user_name)
         except User.DoesNotExist:
             return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        # If the user has a rejected membership, delete it before creating a new one
+        rejected_membership = Membership.objects.filter(team=team, user=user_to_invite, status=Membership.MemberStatus.REJECTED)
+        if rejected_membership.exists():
+            rejected_membership.delete()
 
         # Check if membership already exists
         if Membership.objects.filter(team=team, user=user_to_invite).exists():
