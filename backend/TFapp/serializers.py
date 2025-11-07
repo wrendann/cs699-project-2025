@@ -114,13 +114,19 @@ class TeamDetailSerializer(serializers.ModelSerializer):
             status=Membership.MemberStatus.ACCEPTED
         ).exists()
 
+        pending_memberships = obj.members.filter(
+            status=Membership.MemberStatus.PENDING
+        )
         # If they are the owner OR an accepted member, show pending requests
         if is_owner or is_accepted_member:
-            pending_memberships = obj.members.filter(
-                status=Membership.MemberStatus.PENDING
-            )
             return MembershipSerializer(pending_memberships, many=True).data
         
+
+        # If the requesting user has their own pending request, return only that
+        user_pending = pending_memberships.filter(user=user)
+        if user_pending.exists():
+            return MembershipSerializer(user_pending, many=True).data
+
         # Otherwise, return an empty list
         return []
     
