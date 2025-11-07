@@ -68,6 +68,7 @@ class TeamDetailSerializer(serializers.ModelSerializer):
     # Our two custom member lists
     approved_members = serializers.SerializerMethodField()
     pending_requests = serializers.SerializerMethodField()
+    rejected_users = serializers.SerializerMethodField()
 
     class Meta:
         model = Team
@@ -76,7 +77,8 @@ class TeamDetailSerializer(serializers.ModelSerializer):
             'max_size', 'current_size', 'is_full', 'required_skills',
             'is_open', 'created_at',
             'approved_members',  # Our custom field
-            'pending_requests'   # Our conditional custom field
+            'pending_requests',   # Our conditional custom field
+            'rejected_users'
         ]
 
     def get_approved_members(self, obj):
@@ -129,6 +131,17 @@ class TeamDetailSerializer(serializers.ModelSerializer):
 
         # Otherwise, return an empty list
         return []
+    
+    def get_rejected_users(self, obj):
+        """
+        Gets all 'REJECTED' members for this team.
+        'obj' is the Team instance.
+        """
+        rejected_memberships = obj.members.filter(
+            status=Membership.MemberStatus.REJECTED
+        )
+        # Serialize the list of Membership objects
+        return MembershipSerializer(rejected_memberships, many=True).data
     
 class MembershipSerializer(serializers.ModelSerializer):
     class Meta:
