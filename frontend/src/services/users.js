@@ -17,7 +17,7 @@ export const signUpWithEmail = async credentials => {
         username: credentials.credentials.name, 
         email: credentials.credentials.email, 
         password1: credentials.credentials.password,
-        password2: credentials.credentials.password
+        password2: credentials.credentials.confirmPassword
     }
     const response = await apiClient.post(baseUrl+`auth/registration/`, signUpObject);
     return response.data;

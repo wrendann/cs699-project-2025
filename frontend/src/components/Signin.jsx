@@ -29,26 +29,43 @@ const onEmailSignin = async (credentials, setUser, setErrorMessage) => {
     );
     document.body.style.overflow = "hidden";
   } catch (err) {
-    if (err.response?.data?.error) {
-      if (err.response.data.error === "wrong password") {
-        setErrorMessage("Password is Incorrect. Please try again");
+// --- New Error Handling Logic ---
+  let displayError = "An unexpected error occurred. Please try again."; // Default message
+
+  if (err.response?.data) {
+    // This is the error object from DRF, e.g., { "email": ["..."], "non_field_errors": ["..."] }
+    const errors = err.response.data;
+    console.error("Server validation error:", errors); // Good for debugging
+
+    if (errors.non_field_errors && errors.non_field_errors.length > 0) {
+      displayError = errors.non_field_errors[0];
+    }
+    else if (errors.detail) {
+      displayError = errors.detail;
+    }
+    else {
+      const firstErrorKey = Object.keys(errors)[0];
+      if (firstErrorKey && Array.isArray(errors[firstErrorKey]) && errors[firstErrorKey].length > 0) {
+        displayError = firstErrorKey + ": " + errors[firstErrorKey][0];
       }
-      if (err.response.data.error === "password not allocated") {
-        setErrorMessage("Password Not Allocated.");
-      }
-      if (
-        err.response.data.error ===
-        "User validation failed: name: Path `name` is required."
-      ) {
-        setErrorMessage("User Not Found. Please Create New Account.");
-      }
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 5000);
-    } else {
-        console.log("Undefined Error. Please try again Later.")
-        setErrorMessage("Undefined Error. Please try again Later.")
-    };
+    }
+  } else if (err.request) {
+    // The request was made but no response was received (e.g., server is down)
+    displayError = "Could not connect to the server. Please check your network.";
+    console.error("Network error or no server response:", err.request);
+  } else {
+    // Something else happened (e.g., a JS error *before* the request)
+    displayError = err.message || "An unknown error occurred.";
+    console.error("Error setting up request:", err.message);
+  }
+
+  // Set the single, user-friendly error message
+  setErrorMessage(displayError);
+
+  // Clear the message after 5 seconds
+  setTimeout(() => {
+    setErrorMessage("");
+  }, 5000);
   }
 };
 
@@ -334,6 +351,7 @@ const EmailSignUp = ({
       name,
       email,
       password,
+      confirmPassword,
       signUp: true
     };
     onEmailSignin(credentials, setUser, setErrorMessage);
