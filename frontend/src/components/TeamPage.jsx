@@ -74,7 +74,8 @@ const TeamPage = ({
     const isOwner = teamDetails && teamDetails.owner === currentUsername;
     const isMember = teamDetails && teamDetails.approved_members.some(m => m.user === currentUserId);
     const hasPendingRequest = teamDetails && teamDetails.pending_requests.some(m => m.user === currentUserId);
-    const hasBeenRejected = teamDetails && teamDetails.rejected_users.some(m => m.user === currentUserId);
+    const hasBeenRejected = teamDetails && teamDetails.has_been_rejected;
+    const hasBeenInvited = teamDetails && teamDetails.has_been_invited;
 
     const fetchTeamData = useCallback(async () => {
         setIsLoading(true);
@@ -219,7 +220,18 @@ const TeamPage = ({
                                 </Button>
                             )}
 
-                            {!hasBeenRejected && !isMember && !hasPendingRequest && is_open && !is_full && (
+                            {hasBeenInvited && !isMember && (
+                                <>
+                                    <Button variant="contained" color="success" onClick={handleAcceptInvite} sx={{ mr: 1 }}>
+                                        <CheckIcon sx={{ mr: 1 }} /> Accept Invite
+                                    </Button>
+                                    <Button variant="outlined" color="error" onClick={handleRejectInvite}>
+                                        <CloseIcon sx={{ mr: 1 }} /> Reject Invite
+                                    </Button>
+                                </>
+                            )}
+
+                            {!hasBeenRejected && !isMember && !hasPendingRequest && is_open && !is_full && !hasBeenInvited && (
                                 <Button variant="contained" color="primary" onClick={handleRequestJoin}>
                                     <PersonAddIcon sx={{ mr: 1 }} /> {isOwner ? 'Join Team' : 'Request to Join'}
                                 </Button>
