@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.exceptions import PermissionDenied
 
 from ..models import Event, Team, Membership, User
 from ..serializers import EventSerializer, TeamSerializer, MembershipSerializer, PublicUserProfileSerializer, EventDetailSerializer, TeamDetailSerializer
@@ -99,3 +100,24 @@ class TeamViewSet(viewsets.ModelViewSet):
         )
         serializer = MembershipSerializer(membership, context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def partial_update(self, request, *args, **kwargs):
+        """
+        Allow partial updates to a team, restricted to admins or the owner.
+        Prevent editing of id, name, created_at, and event fields.
+        """
+        team = self.get_object()
+
+        # Check if the user is the owner or an admin
+        if request.user != team.owner and not Membership.objects.filter(
+            team=team, user=request.user, is_admin=True, status=Membership.MemberStatus.ACCEPTED
+        ).exists():
+            raise PermissionDenied("You do not have permission to edit this team.")
+
+        # Restrict editing of certain fields
+        restricted_fields = {'id', 'name', 'created_at', 'event'}
+        for field in restricted_fields:
+            if field in request.data:
+                return Response({"error": f"Editing '{field}' is not allowed."}, status=status.HTTP_400_BAD_REQUEST)
+
+        return super().partial_update(request, *args, **kwargs)

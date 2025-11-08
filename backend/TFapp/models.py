@@ -107,6 +107,7 @@ class Membership(models.Model):
         default=MemberStatus.PENDING
     )
     joined_at = models.DateTimeField(auto_now_add=True)
+    is_admin = models.BooleanField(default=False, help_text="Indicates if the user is an admin of the team.")
 
     class Meta:
         unique_together = ('user', 'team') # A user can only join a team once
