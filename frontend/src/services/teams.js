@@ -50,3 +50,8 @@ export const requestToJoinTeam = async (teamID) => {
     const response = await apiClient.post(`TFapp/teams/${teamID}/join/`);
     return response.data;
 }
+
+export const updateTeamDetails = async (teamID, updates) => {
+    const response = await apiClient.patch(`TFapp/teams/${teamID}/`, updates);
+    return response.data;
+};
