@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Event, Team, Membership
+from .models import Event, Team, Membership, User
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
@@ -245,3 +245,8 @@ class PublicUserProfileSerializer(serializers.ModelSerializer):
             'date_joined' # 'date_joined' is also a common safe field
         ]
         read_only_fields = fields # Ensure all fields are read-only
+
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['bio', 'skills', 'interests', 'location', 'profile_picture']
