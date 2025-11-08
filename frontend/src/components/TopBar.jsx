@@ -117,11 +117,11 @@ const TopBar = ({
               onClick={(event) => {
                 event.preventDefault();
                 setLastButton("profile");
-                navigate("/profile");
+                navigate(`/profile/${user.username}`);
               }}
             >
               <Avatar style={{ width: "30px", height: "30px" }}>
-                <img src={user?.profile} alt={user?.name} />
+                <img src={user?.profile} alt={user?.username[0]} />
               </Avatar>
             </Button>
           </Grid>

@@ -73,7 +73,7 @@ const SideBarButton = ({
 
 // Removed SideBarMenuButton since there are no nested menu items in the new design.
 
-const SideBar = ({ lastButton, setLastButton, handleClose }) => {
+const SideBar = ({ lastButton, setLastButton, handleClose, user }) => {
   const navigate = useNavigate();
 
   const handleTitleClick = (event) => {
@@ -157,7 +157,7 @@ const SideBar = ({ lastButton, setLastButton, handleClose }) => {
             name="profile"
             lastButton={lastButton}
             setLastButton={setLastButton}
-            link="/profile"
+            link={`/profile/${user.username}`}
             handleClose={handleClose}
           />
         </Grid>
@@ -176,11 +176,12 @@ const SideBarManager = ({
   handleClose,
   lastButton,
   setLastButton,
+  user
 }) => {
   if (!isMobile) {
     return (
       <Grid item style={{ width: "275px", positon: "sticky", top: "1px" }}>
-        <SideBar lastButton={lastButton} setLastButton={setLastButton} />
+        <SideBar lastButton={lastButton} setLastButton={setLastButton} user={user}/>
       </Grid>
     );
   }
@@ -207,6 +208,7 @@ const SideBarManager = ({
         lastButton={lastButton}
         setLastButton={setLastButton}
         handleClose={handleClose}
+        user={user}
       />
     </Dialog>
   );

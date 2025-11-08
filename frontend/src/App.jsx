@@ -5,7 +5,6 @@ import { Grid } from "@mui/material";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import { signOut } from "./services/users";
-import { updateProfile } from "./services/profile";
 
 import Dashboard from "./components/Dashboard";
 import Events from "./components/Events";
@@ -44,6 +43,11 @@ const App = () => {
       pathname = "/events"
     if(pathname.startsWith("/teams"))
       pathname = "/teams"
+    if(pathname.startsWith("/profile/") && pathname !== "/profile/")
+    {
+      setLastButton("profile");
+      return;
+    }
     switch (pathname) {
       case "/":
         setLastButton("dashboard");
@@ -61,6 +65,8 @@ const App = () => {
         setLastButton("members");
         break;
       case "/profile":
+      case "/profile/":
+        navigate(`/profile/${user.username}`)
         setLastButton("profile");
         break;
       case "/signin":
@@ -120,27 +126,9 @@ const App = () => {
     signOut();
   };
 
-  const profileUpdate = async () => {
-    let userProfile;
-    try {
-      userProfile = await updateProfile();
-    } catch (exception) {
-      logout();
-    }
-    if (!userProfile.user) logout();
-    else {
-      setUser(userProfile.user);
-      window.localStorage.setItem(
-        "IITBTeamFinderUser",
-        JSON.stringify(userProfile.user)
-      );
-    }
-  };
-
   useEffect(() => {
     if (user) {
       handleResize();
-      //profileUpdate(); --- FUNCTION NOT IMPLEMENTED, KEEPS PROFILE DETAILS UPDATED
     }
   }, []);
 
@@ -170,6 +158,7 @@ const App = () => {
         handleClose={handleClose}
         lastButton={lastButton}
         setLastButton={setLastButton}
+        user={user}
       />
       {/* This Box will handle the main content and take up all remaining space. */}
       <Grid container item direction="column" flexGrow={1}>
@@ -222,7 +211,7 @@ const App = () => {
               <Route path="/teams/:teamID" element={<TeamPage 
                     user={user}
                 />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:username" element={<Profile user={user}/>} />
             </Routes>
             <Box sx={{height: "20px"}}/> {/* Spacer at the bottom */}
           </Box>
