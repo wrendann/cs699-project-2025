@@ -81,13 +81,13 @@ const MemberShipActions = React.memo(({
     </Box>
 ));
 
-const InfoCards = React.memo(({ owner, event, created_at, current_size, max_size, is_full, required_skills }) => (
+const InfoCards = React.memo(({ owner, event, created_at, current_size, max_size, is_full, required_skills, isOwner }) => (
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 3 }} sx={{ mt: 2, p: 1, flexWrap: 'wrap' }}>
         <Card key="owner" variant="outlined" sx={{ mb: 1.5, p: 1 }}>
             <Stack direction="row" spacing={0.5} alignItems="center">
                 <PersonPinIcon color="primary" fontSize="small" />
                 <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                    Owner: {owner}
+                    Owner: {owner} {isOwner ? <span>(You)</span> : null}
                 </Typography>
             </Stack>
         </Card>
@@ -223,6 +223,34 @@ const PendingRequests = React.memo(({ isOwner, pending_requests = [], handleAcce
                                     <CloseIcon fontSize="small" /> Reject
                                 </Button>
                             </ListItemSecondaryAction>
+                        </ListItem>
+                    </Card>
+                ))}
+            </List>
+        </Box>
+    );
+});
+
+const PendingInvitations = React.memo(({ isOwner, pending_invites = [] }) => {
+    if (!isOwner || pending_invites.length === 0) return null;
+    return (
+        <Box sx={{ p: 2, mb: 3 }}>
+            <Typography
+                variant="h5"
+                component="h2"
+                gutterBottom
+                sx={{ fontWeight: 600, borderBottom: '2px solid', borderColor: 'warning.main', display: 'inline-block', pb: 0.5 }}
+            >
+                Pending Invitations ({pending_invites.length})
+            </Typography>
+            <List dense>
+                {pending_invites.map((invite) => (
+                    <Card key={invite.id} variant="outlined" sx={{ mb: 1.5 }}>
+                        <ListItem>
+                            <ListItemText
+                                primary={invite.username}
+                                secondary={`Invited on on: ${formatDateTime(invite.joined_at)}`}
+                            />
                         </ListItem>
                     </Card>
                 ))}
@@ -380,6 +408,10 @@ const TeamPage = ({ user }) => {
                 ...m,
                 username: resolveUsername(m.user)
             }));
+            mockedInfo.pending_invites = info.pending_invites.map(m => ({
+                ...m,
+                username: resolveUsername(m.user)
+            }));
             
             setTeamDetails(mockedInfo);
         } catch (e) {
@@ -490,6 +522,7 @@ const TeamPage = ({ user }) => {
         created_at,
         approved_members,
         pending_requests,
+        pending_invites
     } = teamDetails;
 
     // --- Main Render ---
@@ -538,6 +571,7 @@ const TeamPage = ({ user }) => {
                         max_size={max_size} 
                         is_full={is_full} 
                         required_skills={required_skills} 
+                        isOwner={isOwner}
                     />
 
                     <OwnerEditCard 
@@ -570,6 +604,11 @@ const TeamPage = ({ user }) => {
                     pending_requests={pending_requests} 
                     handleAccept={handleAccept} 
                     handleReject={handleReject} 
+                />
+
+                <PendingInvitations
+                    isOwner={isOwner}
+                    pending_invites={pending_invites}
                 />
 
                 <InviteCard 
