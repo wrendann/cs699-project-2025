@@ -26,3 +26,13 @@ export const signUpWithEmail = async credentials => {
 export const signOut = async () => {
     console.log("Signed out")
 }
+
+export const getUserTeams = async (userId) => {
+    try {
+        const response = await apiClient.get(`TFapp/users/${userId}/teams/`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user teams:", error);
+        throw error;
+    }
+};
