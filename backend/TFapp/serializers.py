@@ -8,6 +8,7 @@ class EventSerializer(serializers.ModelSerializer):
 
 class TeamSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    event_name = serializers.CharField(source='event.name', read_only=True)  # Added field for event name
 
     class Meta:
         model = Team
@@ -17,6 +18,7 @@ class TeamSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'event',
+            'event_name',  # Include the new field
             'owner',  # The read-only field we just defined
             'max_size',
             'required_skills',
@@ -60,6 +62,7 @@ class TeamDetailSerializer(serializers.ModelSerializer):
     # Show usernames instead of IDs for owner/event
     owner = serializers.SlugRelatedField(slug_field='username', read_only=True)
     event = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    event_name = serializers.CharField(source='event.name', read_only=True)  # Added field for event name
 
     # Use model properties
     current_size = serializers.IntegerField(read_only=True)
@@ -76,7 +79,7 @@ class TeamDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = [
-            'id', 'name', 'description', 'event', 'owner', 
+            'id', 'name', 'description', 'event', 'event_name', 'owner', 
             'max_size', 'current_size', 'is_full', 'required_skills',
             'is_open', 'created_at',
             'approved_members',

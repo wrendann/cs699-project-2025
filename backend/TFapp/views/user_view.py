@@ -42,3 +42,14 @@ class UserProfileViewSet(viewsets.ReadOnlyModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
+    def teams(self, request, id=None):
+        """
+        Fetch all teams that the user is part of.
+        """
+        user = self.get_object()
+        memberships = Membership.objects.filter(user=user)
+        teams = [membership.team for membership in memberships]
+        serializer = TeamSerializer(teams, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
