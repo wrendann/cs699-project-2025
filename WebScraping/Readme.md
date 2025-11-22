@@ -21,18 +21,26 @@ The script:
   ```
 # Setup Instructions(Locally update kaggle_events.json)
 1. Clone this repository
-```git clone https://github.com/wrendann/cs699-project-2025.git```
+```
+git clone https://github.com/wrendann/cs699-project-2025.git
+```
 
-2. Move into the backend folder
-```cd cs699-project-2025/WebScraping```
+3. Move into the backend folder
+```
+cd cs699-project-2025/WebScraping
+```
 
-3. Install required Python packages
-```pip install kaggle```
+5. Install required Python packages
+```
+pip install kaggle
+```
 
-4. Add your Kaggle API token
+7. Add your Kaggle API token
 
 Place your downloaded kaggle.json file into:
-```~/.kaggle/kaggle.json```
+```
+~/.kaggle/kaggle.json
+```
 
 If the folder does not exist, create it:
 
@@ -43,11 +51,12 @@ chmod 600 ~/.kaggle/kaggle.json
 ```
 
 5. Run the script
-```python kaggle.py```
+```
+python kaggle.py
+```
 
 
 This will generate or update:
-```kaggle_events.json```
-
+```
 kaggle_events.json
-
+```
