@@ -1,4 +1,4 @@
-# Kaggle Events Fetcher
+# Kaggle Events
 
 This folder contains a Python script that fetches Kaggle competitions and stores them as event data in a JSON file.
 
@@ -25,17 +25,17 @@ The script:
 git clone https://github.com/wrendann/cs699-project-2025.git
 ```
 
-3. Move into the backend folder
+2. Move into the backend folder
 ```
 cd cs699-project-2025/WebScraping
 ```
 
-5. Install required Python packages
+3. Install required Python packages
 ```
 pip install kaggle
 ```
 
-7. Add your Kaggle API token
+4. Add your Kaggle API token
 
 Place your downloaded kaggle.json file into:
 ```
