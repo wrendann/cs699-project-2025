@@ -4,9 +4,9 @@ TeamFinder App
 
 This app will help you find, join or create teams, for various events and competitions.
 
-To be developed using Django backend and aReact frontend.
+To be developed using Django backend and a React frontend.
 
-Events will be scraped from different websites.
+Events will be scraped from different websites like Kaggle.
 
 Done by,
 
