@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
     Box, TextField, Typography, Grid, Stack, CircularProgress,
     Button, Card, CardContent, List, ListItem, ListItemText,
@@ -81,7 +81,7 @@ const MemberShipActions = React.memo(({
     </Box>
 ));
 
-const InfoCards = React.memo(({ owner, event, created_at, current_size, max_size, is_full, required_skills, isOwner }) => (
+const InfoCards = React.memo(({ owner, event_name, event_id, created_at, current_size, max_size, is_full, required_skills, isOwner }) => (
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 3 }} sx={{ mt: 2, p: 1, flexWrap: 'wrap' }}>
         <Card key="owner" variant="outlined" sx={{ mb: 1.5, p: 1 }}>
             <Stack direction="row" spacing={0.5} alignItems="center">
@@ -91,13 +91,15 @@ const InfoCards = React.memo(({ owner, event, created_at, current_size, max_size
                 </Typography>
             </Stack>
         </Card>
-        <Card key="event" variant="outlined" sx={{ mb: 1.5, p: 1 }}>
-            <Stack direction="row" spacing={0.5} alignItems="center">
-                <EventIcon color="primary" fontSize="small" />
-                <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                    Event: {event}
-                </Typography>
-            </Stack>
+        <Card key="event" variant="outlined" sx={{ mb: 1.5, p: 1, cursor: 'pointer' }}>
+            <Link to={`/events/${event_id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Stack direction="row" spacing={0.5} alignItems="center">
+                    <EventIcon color="primary" fontSize="small" />
+                    <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                        Event: {event_name}
+                    </Typography>
+                </Stack>
+            </Link>
         </Card>
         <Card key="created_at" variant="outlined" sx={{ mb: 1.5, p: 1 }}>
             <Stack direction="row" spacing={0.5} alignItems="center">
@@ -512,7 +514,8 @@ const TeamPage = ({ user }) => {
     const {
         name,
         description,
-        event,
+        event_name,
+        event_id,
         owner,
         max_size,
         current_size,
@@ -565,7 +568,8 @@ const TeamPage = ({ user }) => {
 
                     <InfoCards 
                         owner={owner} 
-                        event={event} 
+                        event_name={event_name} 
+                        event_id={event_id}
                         created_at={created_at} 
                         current_size={current_size} 
                         max_size={max_size} 
