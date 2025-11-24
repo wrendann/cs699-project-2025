@@ -2,8 +2,9 @@ import logging
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from django.utils import timezone
+from datetime import datetime
 from django.db import transaction
-from .Scraping.Webscrap import Confirmation, fetch_kaggle_events
+from .Scraping.Webscrap import Confirmation, fetch_kaggle_events, ensure_timezone_aware
 logger = logging.getLogger(__name__)
 
 # Module-level scheduler reference so we only start once
@@ -17,19 +18,24 @@ def scrape_events_placeholder():
     """
     logger.info("Running scrape_events_placeholder job")
     try:
-        kaggle_events=fetch_kaggle_events()
+        kaggle_events = fetch_kaggle_events()
         # Local import to avoid import-time model access before Django is ready
         from .models import Event
         name = f"Scraped Event {timezone.now().isoformat()}"
+
+        # Use centralized helper from Webscrap to normalize datetimes
+
         with transaction.atomic():
             for ev in kaggle_events:
                 if Event.objects.filter(location=ev["id"]).exists():
-                    continue 
+                    continue
+                start = ensure_timezone_aware(ev.get("startDate"))
+                end = ensure_timezone_aware(ev.get("submissionsDeadline"))
                 Event.objects.create(
                     name=ev["title"],
-                    description=ev["description"],
-                    start_date=ev["startDate"],
-                    end_date=ev["submissionsDeadline"],
+                    description=ev.get("description", ""),
+                    start_date=start,
+                    end_date=end,
                     location=ev["id"],
                 )
             logger.info("Created placeholder event: %s", name)

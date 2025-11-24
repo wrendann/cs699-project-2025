@@ -2,6 +2,45 @@ import json
 from datetime import datetime
 from kaggle.api.kaggle_api_extended import KaggleApi
 
+# Try to use Django timezone utilities when running inside the project.
+# If Django isn't available (running this file standalone), fall back to UTC.
+try:
+    from django.utils import timezone as dj_timezone
+    DJANGO_TZ_AVAILABLE = True
+except Exception:
+    dj_timezone = None
+    DJANGO_TZ_AVAILABLE = False
+    from datetime import timezone as _dt_timezone
+
+
+def ensure_timezone_aware(dt):
+    """Convert a datetime or ISO-format string to a timezone-aware datetime.
+
+    - If `dt` is an ISO string it will be parsed with datetime.fromisoformat.
+    - If the parsed/received datetime is naive, the function will make it
+      aware using Django's default timezone when available, otherwise UTC.
+
+    Returns the original value if parsing fails or if the value is not a
+    datetime/string.
+    """
+    if dt is None:
+        return None
+    # parse ISO strings
+    if isinstance(dt, str):
+        try:
+            dt = datetime.fromisoformat(dt)
+        except Exception:
+            return dt
+    # if it's a datetime, make it aware if naive
+    if isinstance(dt, datetime):
+        if dt.tzinfo is None:
+            if DJANGO_TZ_AVAILABLE:
+                return dj_timezone.make_aware(dt, dj_timezone.get_default_timezone())
+            # fallback to UTC
+            return dt.replace(tzinfo=_dt_timezone.utc)
+        return dt
+    return dt
+
 
 def Confirmation():
     print("Added events to database")
@@ -20,18 +59,22 @@ def fetch_kaggle_events(max_pages=2):
         
         for comp in competitions:
             #print(dir(comp))
+            # Keep the original datetime objects from Kaggle's API instead
+            # of converting them to strings. We'll make them timezone-aware
+            # later (in the scheduler) if needed. Keeping them as datetimes
+            # makes it easier to inspect and convert correctly.
             event = {
                 "id": comp.ref,
                 "title": comp.title,
                 #"organization": comp.organizationName,
-                "description" : comp.description,
+                "description": comp.description,
                 #"reward": comp.reward,
                 #"category": comp.category,
-                "startDate": str(comp.enabled_date),
-                "submissionsDeadline": str(comp.deadline),
+                "startDate": comp.enabled_date,
+                "submissionsDeadline": comp.deadline,
                 #"hostSegment": comp.hostSegmentTitle,
                 #"isPrivate": comp.isPrivate,
-                #"enabledDate": str(comp.enabledDate),
+                #"enabledDate": comp.enabledDate,
                 #"maxTeamSize": comp.maxTeamSize,
                 #"userHasEntered": comp.userHasEntered
             }
