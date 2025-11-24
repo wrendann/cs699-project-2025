@@ -61,6 +61,7 @@ class TeamDetailSerializer(serializers.ModelSerializer):
     """
     # Show usernames instead of IDs for owner/event
     owner = serializers.SlugRelatedField(slug_field='username', read_only=True)
+    owner_id = serializers.UUIDField(source='owner.id', read_only=True)
     # Expose the event's id (UUID) under the name `event_id` and keep the human name
     # Use UUIDField so the UUID is serialized as the standard dashed string
     event_id = serializers.UUIDField(source='event.id', read_only=True)
@@ -81,7 +82,8 @@ class TeamDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = [
-            'id', 'name', 'description', 'event_id', 'event_name', 'owner', 
+            'id', 'name', 'description', 'event_id', 'event_name',
+            'owner', 'owner_id', 
             'max_size', 'current_size', 'is_full', 'required_skills',
             'is_open', 'created_at',
             'approved_members',

@@ -81,15 +81,17 @@ const MemberShipActions = React.memo(({
     </Box>
 ));
 
-const InfoCards = React.memo(({ owner, event_name, event_id, created_at, current_size, max_size, is_full, required_skills, isOwner }) => (
+const InfoCards = React.memo(({ owner, owner_id, event_name, event_id, created_at, current_size, max_size, is_full, required_skills, isOwner }) => (
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 3 }} sx={{ mt: 2, p: 1, flexWrap: 'wrap' }}>
         <Card key="owner" variant="outlined" sx={{ mb: 1.5, p: 1 }}>
-            <Stack direction="row" spacing={0.5} alignItems="center">
-                <PersonPinIcon color="primary" fontSize="small" />
-                <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                    Owner: {owner} {isOwner ? <span>(You)</span> : null}
-                </Typography>
-            </Stack>
+            <Link to={`/profile/${owner}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Stack direction="row" spacing={0.5} alignItems="center">
+                    <PersonPinIcon color="primary" fontSize="small" />
+                    <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                        Owner: {owner} {isOwner ? <span>(You)</span> : null}
+                    </Typography>
+                </Stack>
+            </Link>
         </Card>
         <Card key="event" variant="outlined" sx={{ mb: 1.5, p: 1, cursor: 'pointer' }}>
             <Link to={`/events/${event_id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -517,6 +519,7 @@ const TeamPage = ({ user }) => {
         event_name,
         event_id,
         owner,
+        owner_id,
         max_size,
         current_size,
         is_full,
@@ -568,6 +571,7 @@ const TeamPage = ({ user }) => {
 
                     <InfoCards 
                         owner={owner} 
+                        owner_id={owner_id}
                         event_name={event_name} 
                         event_id={event_id}
                         created_at={created_at} 

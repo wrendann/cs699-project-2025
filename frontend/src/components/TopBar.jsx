@@ -5,6 +5,10 @@ import { Grid, Button, Avatar, ClickAwayListener, Link } from "@mui/material";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import AppsIcon from "@mui/icons-material/Apps";
 
+import {
+    Person as PersonIcon,
+} from '@mui/icons-material';
+
 const MenuModal = ({ open, toggleModal, closeModal, navigate, logout }) => {
   return (
     <ClickAwayListener onClickAway={closeModal}>
@@ -121,15 +125,19 @@ const TopBar = ({
               }}
             >
               <Avatar style={{ width: "45px", height: "45px" }}>
-                <img
-                  src={user?.profile_picture}
-                  alt={user?.username[0]}
-                  style={{
-                    width: "120%",
-                    height: "120%",
-                    objectFit: "cover",
-                  }}
-                />
+                {user?.profile_picture ? (
+                  <img
+                    src={user?.profile_picture}
+                    alt={user?.username[0]}
+                    style={{
+                      width: "120%",
+                      height: "120%",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <PersonIcon sx={{ fontSize: 50, color: 'grey.600' }} />
+                )}
               </Avatar>
             </Button>
           </Grid>
