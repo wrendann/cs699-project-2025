@@ -394,27 +394,19 @@ const TeamPage = ({ user }) => {
         setError('');
         try {
             const info = await getTeamInfo(teamID);
-            
-            // TODO: This mocking logic should be replaced by a real user resolution system
-            const resolveUsername = (userId) => {
-                if (userId === currentUserId) return currentUsername;
-                // Example hardcoded ID
-                if (userId === "5b1ceadb-0399-4446-84eb-99c9c74db034") return "Ziyad123";
-                return `User-${userId.substring(0, 4)}`; // Generic placeholder
-            };
 
             const mockedInfo = { ...info };
             mockedInfo.approved_members = info.approved_members.map(m => ({
                 ...m,
-                username: resolveUsername(m.user)
+                username: m.username
             }));
             mockedInfo.pending_requests = info.pending_requests.map(m => ({
                 ...m,
-                username: resolveUsername(m.user)
+                username: m.username
             }));
             mockedInfo.pending_invites = info.pending_invites.map(m => ({
                 ...m,
-                username: resolveUsername(m.user)
+                username: m.username
             }));
             
             setTeamDetails(mockedInfo);

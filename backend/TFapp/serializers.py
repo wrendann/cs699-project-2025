@@ -214,9 +214,22 @@ class TeamDetailSerializer(serializers.ModelSerializer):
         return is_invited_member
             
 class MembershipSerializer(serializers.ModelSerializer):
+    # Expose the username of the related user for convenience in API responses
+    username = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = Membership
-        fields = '__all__'
+        # Explicitly list model fields so we can append the computed 'user_username'
+        fields = [
+            'id',
+            'team',
+            'user',
+            'role',
+            'status',
+            'joined_at',
+            'is_admin',
+            'username',
+        ]
+        read_only_fields = ['username', 'joined_at']
 
 from django.contrib.auth import get_user_model
 
