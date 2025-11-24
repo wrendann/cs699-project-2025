@@ -13,16 +13,18 @@ def fetch_kaggle_events(max_pages=2):
     all_events = []
     for page in range(1, max_pages + 1):
         competitions = api.competitions_list(sort_by='latestDeadline', page=page)
+        
         for comp in competitions:
+            #print(dir(comp))
             event = {
                 "id": comp.ref,
                 "title": comp.title,
                 #"organization": comp.organizationName,
-                "reward": comp.reward,
-                "category": comp.category,
+                "description" : comp.description,
+                #"reward": comp.reward,
+                #"category": comp.category,
+                "startDate": str(comp.enabled_date),
                 "submissionsDeadline": str(comp.deadline),
-                "url": f"https://www.kaggle.com/competitions/{comp.ref}",
-                "description": comp.description,
                 #"hostSegment": comp.hostSegmentTitle,
                 #"isPrivate": comp.isPrivate,
                 #"enabledDate": str(comp.enabledDate),
