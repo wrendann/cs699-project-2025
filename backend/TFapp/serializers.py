@@ -227,8 +227,8 @@ class UserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         # Define the fields you want to include in the response
-        fields = ('pk', 'username', 'email', 'first_name', 'last_name')
-        read_only_fields = ('email', ) # Email should not be updatable through this serializer
+        fields = ('pk', 'username', 'email', 'first_name', 'last_name', 'profile_picture')
+        read_only_fields = ('email', 'profile_picture', ) # Email should not be updatable through this serializer
 
 class PublicUserProfileSerializer(serializers.ModelSerializer):
     """

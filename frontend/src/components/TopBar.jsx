@@ -120,8 +120,16 @@ const TopBar = ({
                 navigate(`/profile/${user.username}`);
               }}
             >
-              <Avatar style={{ width: "30px", height: "30px" }}>
-                <img src={user?.profile} alt={user?.username[0]} />
+              <Avatar style={{ width: "45px", height: "45px" }}>
+                <img
+                  src={user?.profile_picture}
+                  alt={user?.username[0]}
+                  style={{
+                    width: "120%",
+                    height: "120%",
+                    objectFit: "cover",
+                  }}
+                />
               </Avatar>
             </Button>
           </Grid>

@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from ..models import Event, Team, Membership, User
 from ..serializers import EventSerializer, TeamSerializer, MembershipSerializer, PublicUserProfileSerializer, EventDetailSerializer, TeamDetailSerializer, UserProfileUpdateSerializer
@@ -31,6 +32,7 @@ class UserProfileViewSet(viewsets.ReadOnlyModelViewSet):
     # Set permissions: e.g., only logged-in users can see profiles.
     # Use IsAuthenticatedOrReadOnly if you want anonymous users to see profiles.
     permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser,)
 
     @action(detail=True, methods=['patch'], permission_classes=[IsAuthenticated])
     def update_profile(self, request, id=None):

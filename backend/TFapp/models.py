@@ -2,6 +2,12 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.utils import timezone
+import os
+
+def get_profile_pic_upload_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+    return os.path.join('profile_pics', filename)
 
 class User(AbstractUser):
     """
@@ -14,7 +20,7 @@ class User(AbstractUser):
     skills = models.CharField(max_length=255, blank=True, help_text="Comma-separated list of skills")
     interests = models.CharField(max_length=255, blank=True, help_text="Comma-separated list of interests")
     location = models.CharField(max_length=100, blank=True)
-    profile_picture = models.URLField(max_length=200, null=True, blank=True)
+    profile_picture = models.ImageField(upload_to=get_profile_pic_upload_path, null=True, blank=True)
 
 
     # Add related_name to avoid clashes with the default User model
