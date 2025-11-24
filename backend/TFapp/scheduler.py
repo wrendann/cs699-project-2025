@@ -3,12 +3,11 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from django.utils import timezone
 from django.db import transaction
-
+from .Scraping.Webscrap import Confirmation, fetch_kaggle_events
 logger = logging.getLogger(__name__)
 
 # Module-level scheduler reference so we only start once
 _scheduler = None
-
 
 def scrape_events_placeholder():
     """Placeholder scraping job.
@@ -18,18 +17,23 @@ def scrape_events_placeholder():
     """
     logger.info("Running scrape_events_placeholder job")
     try:
+        kaggle_events=fetch_kaggle_events()
         # Local import to avoid import-time model access before Django is ready
         from .models import Event
         name = f"Scraped Event {timezone.now().isoformat()}"
         with transaction.atomic():
-            Event.objects.create(
-                name=name,
-                description="Placeholder event created by scraper",
-                start_date=timezone.now(),
-                end_date=timezone.now(),
-                location="Online",
-            )
-        logger.info("Created placeholder event: %s", name)
+            for ev in kaggle_events:
+                if Event.objects.filter(location=ev["id"]).exists():
+                    continue 
+                Event.objects.create(
+                    name=ev["title"],
+                    description=ev["description"],
+                    start_date=ev["startDate"],
+                    end_date=ev["submissionsDeadline"],
+                    location=ev["id"],
+                )
+            logger.info("Created placeholder event: %s", name)
+        Confirmation()
     except Exception:
         logger.exception("Error while running scrape_events_placeholder")
 
@@ -45,7 +49,7 @@ def start_scheduler():
         logger.debug("Scheduler already running")
         return
 
-    logger.info("Starting background scheduler for TFapp jobs")
+    print("Starting background scheduler for TFapp jobs")
     _scheduler = BackgroundScheduler()
 
     # Run every 60 minutes by default. Adjust the interval as needed.
@@ -58,4 +62,4 @@ def start_scheduler():
     )
 
     _scheduler.start()
-    logger.info("Scheduler started with job 'tfapp.scrape_events' (interval: 60m)")
+    print("Scheduler started with job 'tfapp.scrape_events' (interval: 60m)")
