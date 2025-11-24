@@ -5,6 +5,7 @@ from django.utils import timezone
 from datetime import datetime
 from django.db import transaction
 from .Scraping.Webscrap import Confirmation, fetch_kaggle_events, ensure_timezone_aware
+from .Scraping.DevpostScrap import fetch_devpost_filtered_events, ensure_timezone_aware as en
 logger = logging.getLogger(__name__)
 
 # Module-level scheduler reference so we only start once
@@ -19,6 +20,7 @@ def scrape_events_placeholder():
     logger.info("Running scrape_events_placeholder job")
     try:
         kaggle_events = fetch_kaggle_events()
+        devpost_events = fetch_devpost_filtered_events()
         # Local import to avoid import-time model access before Django is ready
         from .models import Event
         name = f"Scraped Event {timezone.now().isoformat()}"
@@ -37,6 +39,18 @@ def scrape_events_placeholder():
                     start_date=start,
                     end_date=end,
                     location=ev["id"],
+                )
+            for dv in devpost_events:
+                if Event.objects.filter(location=dv["id"]).exists():
+                    continue
+                start = en(dv.get("startDate"))
+                end = en(dv.get("submissionsDeadline"))
+                Event.objects.create(
+                    name=dv["title"],
+                    description=dv.get("description", ""),
+                    start_date=start,
+                    end_date=end,
+                    location=dv["id"],
                 )
             logger.info("Created placeholder event: %s", name)
         Confirmation()

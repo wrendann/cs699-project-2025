@@ -14,15 +14,6 @@ except Exception:
 
 
 def ensure_timezone_aware(dt):
-    """Convert a datetime or ISO-format string to a timezone-aware datetime.
-
-    - If `dt` is an ISO string it will be parsed with datetime.fromisoformat.
-    - If the parsed/received datetime is naive, the function will make it
-      aware using Django's default timezone when available, otherwise UTC.
-
-    Returns the original value if parsing fails or if the value is not a
-    datetime/string.
-    """
     if dt is None:
         return None
     # parse ISO strings
