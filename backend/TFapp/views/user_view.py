@@ -39,10 +39,11 @@ class UserProfileViewSet(viewsets.ReadOnlyModelViewSet):
         user = self.get_object()
         if user != request.user:
             raise PermissionDenied("You do not have permission to update this profile.")
-        serializer = UserProfileUpdateSerializer(user, data=request.data, partial=True)
+        serializer = UserProfileUpdateSerializer(user, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            public = PublicUserProfileSerializer(user, context={'request': request})
+            return Response(public.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])

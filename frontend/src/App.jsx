@@ -211,7 +211,7 @@ const App = () => {
               <Route path="/teams/:teamID" element={<TeamPage 
                     user={user}
                 />} />
-              <Route path="/profile/:username" element={<Profile user={user}/>} />
+              <Route path="/profile/:username" element={<Profile user={user} setUser={setUser} />} />
             </Routes>
             <Box sx={{height: "20px"}}/> {/* Spacer at the bottom */}
           </Box>

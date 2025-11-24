@@ -47,8 +47,8 @@ const getProfileFromServer = async (username, navigate, user, setProfileStates) 
     }
 }
 
-// Function to update profile data on the server
-const updateProfileToServer = async (userID, profileData, file, setSuccessMessage, setError, setEditMode) => {
+
+const updateProfileToServer = async (userID, profileData, file, setSuccessMessage, setError, setEditMode, setUser) => {
     try {
         const formData = new FormData();
         Object.keys(profileData).forEach(key => {
@@ -64,8 +64,21 @@ const updateProfileToServer = async (userID, profileData, file, setSuccessMessag
             // formData.append('clear_profile_picture', 'true');
         }
 
-        await updateProfile(userID, formData); 
-        
+        const response = await updateProfile(userID, formData);
+
+        // If the server returned updated user/profile info, update localStorage and app-level user state
+        if (response && setUser) {
+            try {
+                const stored = JSON.parse(window.localStorage.getItem('IITBTeamFinderUser')) || {};
+
+                const updatedUser = { ...stored, ...response };
+                window.localStorage.setItem('IITBTeamFinderUser', JSON.stringify(updatedUser));
+                setUser(updatedUser);
+            } catch (err) {
+                console.error('Failed to update local user after profile save', err);
+            }
+        }
+
         setSuccessMessage('Profile updated successfully!');
         setError('');
         setEditMode(false); 
@@ -82,7 +95,7 @@ const formatDateTime = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
-const Profile = ({ user }) => {
+const Profile = ({ user, setUser }) => {
 
     const { username } = useParams();
     const navigate = useNavigate();
@@ -191,7 +204,8 @@ const Profile = ({ user }) => {
             profilePicture, // This is the actual data to send (File or original URL string)
             setSuccessMessage, 
             setError, 
-            setEditMode
+            setEditMode,
+            setUser
         );
         // On success, the component will re-fetch data, and states will be reset via useEffect
     };
