@@ -2,235 +2,183 @@
     {
         "id": "https://www.kaggle.com/competitions/llm-classification-finetuning",
         "title": "LLM Classification Finetuning",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-07-01 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/llm-classification-finetuning",
-        "description": "Finetune LLMs to Predict Human Preference using Chatbot Arena conversations"
+        "description": "Finetune LLMs to Predict Human Preference using Chatbot Arena conversations",
+        "startDate": "2024-10-16 19:00:30.487000",
+        "submissionsDeadline": "2030-07-01 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/gan-getting-started",
         "title": "I’m Something of a Painter Myself",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-07-01 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/gan-getting-started",
-        "description": "Use GANs to create art - will you be the next Monet?"
+        "description": "Use GANs to create art - will you be the next Monet?",
+        "startDate": "2020-08-28 20:41:18",
+        "submissionsDeadline": "2030-07-01 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/contradictory-my-dear-watson",
         "title": "Contradictory, My Dear Watson",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-07-01 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/contradictory-my-dear-watson",
-        "description": "Detecting contradiction and entailment in multilingual text using TPUs"
+        "description": "Detecting contradiction and entailment in multilingual text using TPUs",
+        "startDate": "2020-07-30 21:03:15",
+        "submissionsDeadline": "2030-07-01 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/store-sales-time-series-forecasting",
         "title": "Store Sales - Time Series Forecasting",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-06-30 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/store-sales-time-series-forecasting",
-        "description": "Use machine learning to predict grocery sales"
+        "description": "Use machine learning to predict grocery sales",
+        "startDate": "2021-10-06 17:45:52.597000",
+        "submissionsDeadline": "2030-06-30 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/tpu-getting-started",
         "title": "Petals to the Metal - Flower Classification on TPU",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-06-03 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/tpu-getting-started",
-        "description": "Getting Started with TPUs on Kaggle!"
+        "description": "Getting Started with TPUs on Kaggle!",
+        "startDate": "2020-06-18 23:27:53.083000",
+        "submissionsDeadline": "2030-06-03 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/home-data-for-ml-course",
         "title": "Housing Prices Competition for Kaggle Learn Users",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-01-01 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/home-data-for-ml-course",
-        "description": "Apply what you learned in the Machine Learning course on Kaggle Learn alongside others in the course."
+        "description": "Apply what you learned in the Machine Learning course on Kaggle Learn alongside others in the course.",
+        "startDate": "2018-07-18 19:25:27.107000",
+        "submissionsDeadline": "2030-01-01 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/spaceship-titanic",
         "title": "Spaceship Titanic",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-01-01 00:00:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/spaceship-titanic",
-        "description": "Predict which passengers are transported to an alternate dimension"
+        "description": "Predict which passengers are transported to an alternate dimension",
+        "startDate": "2022-02-23 19:33:28.377000",
+        "submissionsDeadline": "2030-01-01 00:00:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/nlp-getting-started",
         "title": "Natural Language Processing with Disaster Tweets",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-01-01 00:00:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/nlp-getting-started",
-        "description": "Predict which Tweets are about real disasters and which ones are not"
+        "description": "Predict which Tweets are about real disasters and which ones are not",
+        "startDate": "2019-12-23 22:02:26.193000",
+        "submissionsDeadline": "2030-01-01 00:00:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/connectx",
         "title": "Connect X",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-01-01 00:00:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/connectx",
-        "description": "Connect your checkers in a row before your opponent!"
+        "description": "Connect your checkers in a row before your opponent!",
+        "startDate": "2020-01-03 21:25:59",
+        "submissionsDeadline": "2030-01-01 00:00:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques",
         "title": "House Prices - Advanced Regression Techniques",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-01-01 00:00:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques",
-        "description": "Predict sales prices and practice feature engineering, RFs, and gradient boosting"
+        "description": "Predict sales prices and practice feature engineering, RFs, and gradient boosting",
+        "startDate": "2016-08-30 01:08:56.763000",
+        "submissionsDeadline": "2030-01-01 00:00:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/titanic",
         "title": "Titanic - Machine Learning from Disaster",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-01-01 00:00:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/titanic",
-        "description": "Start here! Predict survival on the Titanic and get familiar with ML basics"
+        "description": "Start here! Predict survival on the Titanic and get familiar with ML basics",
+        "startDate": "2012-09-28 21:13:33",
+        "submissionsDeadline": "2030-01-01 00:00:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/digit-recognizer",
         "title": "Digit Recognizer",
-        "reward": "Knowledge",
-        "category": "Getting Started",
-        "submissionsDeadline": "2030-01-01 00:00:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/digit-recognizer",
-        "description": "Learn computer vision fundamentals with the famous MNIST data"
+        "description": "Learn computer vision fundamentals with the famous MNIST data",
+        "startDate": "2012-07-25 20:43:30.087000",
+        "submissionsDeadline": "2030-01-01 00:00:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-3",
         "title": "AI Mathematical Olympiad - Progress Prize 3",
-        "reward": "2,207,152 Usd",
-        "category": "Featured",
-        "submissionsDeadline": "2026-04-15 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-3",
-        "description": "Solve international-level math challenges using artificial intelligence models"
+        "description": "Solve international-level math challenges using artificial intelligence models",
+        "startDate": "2025-11-20 15:00:23",
+        "submissionsDeadline": "2026-04-15 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/vesuvius-challenge-surface-detection",
         "title": "Vesuvius Challenge - Surface Detection",
-        "reward": "100,000 Usd",
-        "category": "Research",
-        "submissionsDeadline": "2026-02-13 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/vesuvius-challenge-surface-detection",
-        "description": "Build a model to virtually unwrap ancient scrolls. "
+        "description": "Build a model to virtually unwrap ancient scrolls. ",
+        "startDate": "2025-11-13 17:44:07.847000",
+        "submissionsDeadline": "2026-02-13 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/cafa-6-protein-function-prediction",
         "title": "CAFA 6 Protein Function Prediction",
-        "reward": "50,000 Usd",
-        "category": "Research",
-        "submissionsDeadline": "2026-02-02 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/cafa-6-protein-function-prediction",
-        "description": "Predict the biological function of a protein "
+        "description": "Predict the biological function of a protein ",
+        "startDate": "2025-10-15 19:04:52.073000",
+        "submissionsDeadline": "2026-02-02 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/santa-2025",
         "title": "Santa 2025 - Christmas Tree Packing Challenge",
-        "reward": "50,000 Usd",
-        "category": "Featured",
-        "submissionsDeadline": "2026-01-30 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/santa-2025",
-        "description": "How many Christmas trees can fit in a box? Help solve a classic optimization problem with a festive twist."
+        "description": "How many Christmas trees can fit in a box? Help solve a classic optimization problem with a festive twist.",
+        "startDate": "2025-11-17 18:25:29.117000",
+        "submissionsDeadline": "2026-01-30 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/csiro-biomass",
         "title": "CSIRO - Image2Biomass Prediction",
-        "reward": "75,000 Usd",
-        "category": "Research",
-        "submissionsDeadline": "2026-01-28 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/csiro-biomass",
-        "description": "Predict biomass using the provided pasture images"
+        "description": "Predict biomass using the provided pasture images",
+        "startDate": "2025-10-28 20:02:37.367000",
+        "submissionsDeadline": "2026-01-28 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/physionet-ecg-image-digitization",
         "title": "PhysioNet - Digitization of ECG Images",
-        "reward": "50,000 Usd",
-        "category": "Research",
-        "submissionsDeadline": "2026-01-22 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/physionet-ecg-image-digitization",
-        "description": "Extract the ECG time-series data from scans and photographs of paper printouts of the ECGs."
+        "description": "Extract the ECG time-series data from scans and photographs of paper printouts of the ECGs.",
+        "startDate": "2025-10-21 17:00:05.267000",
+        "submissionsDeadline": "2026-01-22 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/mitsui-commodity-prediction-challenge",
         "title": "MITSUI&CO. Commodity Prediction Challenge",
-        "reward": "100,000 Usd",
-        "category": "Featured",
-        "submissionsDeadline": "2026-01-16 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/mitsui-commodity-prediction-challenge",
-        "description": "Develop a robust model for accurate and stable prediction of commodity prices"
+        "description": "Develop a robust model for accurate and stable prediction of commodity prices",
+        "startDate": "2025-07-24 16:14:52.173000",
+        "submissionsDeadline": "2026-01-16 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/recodai-luc-scientific-image-forgery-detection",
         "title": "Recod.ai/LUC - Scientific Image Forgery Detection",
-        "reward": "55,000 Usd",
-        "category": "Research",
-        "submissionsDeadline": "2026-01-15 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/recodai-luc-scientific-image-forgery-detection",
-        "description": "Develop methods that can accurately detect and segment copy-move forgeries within biomedical research images."
+        "description": "Develop methods that can accurately detect and segment copy-move forgeries within biomedical research images.",
+        "startDate": "2025-10-23 18:03:01.113000",
+        "submissionsDeadline": "2026-01-15 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/google-tunix-hackathon",
         "title": "Google Tunix Hack - Train a model to show its work",
-        "reward": "100,000 Usd",
-        "category": "Featured",
-        "submissionsDeadline": "2026-01-12 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/google-tunix-hackathon",
-        "description": "Teach a LLM to reason using Tunix, Google’s new JAX-native library for LLM post-training."
+        "description": "Teach a LLM to reason using Tunix, Google’s new JAX-native library for LLM post-training.",
+        "startDate": "2025-11-11 16:32:10.177000",
+        "submissionsDeadline": "2026-01-12 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/nfl-big-data-bowl-2026-analytics",
         "title": "NFL Big Data Bowl 2026 - Analytics",
-        "reward": "50,000 Usd",
-        "category": "Featured",
-        "submissionsDeadline": "2025-12-17 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/nfl-big-data-bowl-2026-analytics",
-        "description": "Understand player movement while the ball is in the air"
+        "description": "Understand player movement while the ball is in the air",
+        "startDate": "2025-09-25 14:40:18",
+        "submissionsDeadline": "2025-12-17 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/hull-tactical-market-prediction",
         "title": "Hull Tactical - Market Prediction",
-        "reward": "100,000 Usd",
-        "category": "Featured",
-        "submissionsDeadline": "2025-12-15 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/hull-tactical-market-prediction",
-        "description": "Can you predict market predictability?"
+        "description": "Can you predict market predictability?",
+        "startDate": "2025-09-16 17:04:06",
+        "submissionsDeadline": "2025-12-15 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/MABe-mouse-behavior-detection",
         "title": "MABe Challenge - Social Action Recognition in Mice",
-        "reward": "50,000 Usd",
-        "category": "Research",
-        "submissionsDeadline": "2025-12-15 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/MABe-mouse-behavior-detection",
-        "description": "Detect unique behaviors from pose estimates of mice."
+        "description": "Detect unique behaviors from pose estimates of mice.",
+        "startDate": "2025-09-18 17:55:31",
+        "submissionsDeadline": "2025-12-15 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/nfl-big-data-bowl-2026-prediction",
         "title": "NFL Big Data Bowl 2026 - Prediction",
-        "reward": "50,000 Usd",
-        "category": "Featured",
-        "submissionsDeadline": "2025-12-03 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/nfl-big-data-bowl-2026-prediction",
-        "description": "Predict player movement while the ball is in the air"
+        "description": "Predict player movement while the ball is in the air",
+        "startDate": "2025-09-25 14:41:10",
+        "submissionsDeadline": "2025-12-03 23:59:00"
     },
     {
         "id": "https://www.kaggle.com/competitions/playground-series-s5e11",
         "title": "Predicting Loan Payback",
-        "reward": "Swag",
-        "category": "Playground",
-        "submissionsDeadline": "2025-11-30 23:59:00",
-        "url": "https://www.kaggle.com/competitions/https://www.kaggle.com/competitions/playground-series-s5e11",
-        "description": "Playground Series - Season 5, Episode 11"
+        "description": "Playground Series - Season 5, Episode 11",
+        "startDate": "2025-11-01 00:00:12",
+        "submissionsDeadline": "2025-11-30 23:59:00"
     }
 ]
