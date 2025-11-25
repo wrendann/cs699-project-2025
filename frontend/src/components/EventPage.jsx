@@ -158,13 +158,14 @@ const EventPage = ({setLastButton}) => {
                         )}
                     </Grid>
                 </Box>
-                <Fab color="primary" aria-label="add" onClick={(e) => {
-                    e.preventDefault();
-                    setFormOpen(true);
-                }}
-                    sx={{position: "fixed", bottom: 16, right: 16, borderRadius: '8px', width: '150px'}}>
+                {new Date(eventDetails.end_date).getTime() >= new Date() ? 
+                    <Fab color="primary" aria-label="add" onClick={(e) => {
+                        e.preventDefault();
+                        setFormOpen(true);
+                    }}
+                        sx={{position: "fixed", bottom: 16, right: 16, borderRadius: '8px', width: '150px'}}>
                     <pre>Create New Team</pre>
-                </Fab>
+                </Fab> : null}
                 <AddNewTeam eventId={eventId} open={formOpen} setOpen={setFormOpen} 
                     eventDetails={eventDetails} setEventDetails={setEventDetails}/>
             </Box>
