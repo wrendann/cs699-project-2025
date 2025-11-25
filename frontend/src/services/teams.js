@@ -1,7 +1,12 @@
 import apiClient from './apiClient';
 
 export const getTeamInfo = async (teamID) => {
-    const response = await apiClient.get(`TFapp/teams/${teamID}`);
+    const response = await apiClient.get(`TFapp/teams/${teamID}/`);
+    return response.data;
+}
+
+export const getRecommendedMembers = async (teamID) => {
+    const response = await apiClient.get(`TFapp/teams/${teamID}/recommended/`);
     return response.data;
 }
 

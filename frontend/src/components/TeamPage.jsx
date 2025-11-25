@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
     Box, TextField, Typography, Grid, Stack, CircularProgress,
     Button, Card, CardContent, List, ListItem, ListItemText,
@@ -24,6 +24,7 @@ import {
 
 import {
     getTeamInfo,
+    getRecommendedMembers,
     acceptTeamMember,
     rejectTeamMember,
     kickTeamMember,
@@ -335,8 +336,9 @@ const MembersList = React.memo(({
     </Box>
 ));
 
-const InviteCard = React.memo(({ isOwner, inviteUserId, setInviteUserId, handleInvite }) => {
+const InviteCard = React.memo(({ isOwner, inviteUserId, setInviteUserId, handleInvite, recommenedMembers }) => {
     if (!isOwner) return null;
+    const navigate = useNavigate();
     return (
         <Card variant="outlined" sx={{ p: 2, mt: 3, backgroundColor: 'grey.50' }}>
             <Typography variant="h6" gutterBottom>Invite New Member</Typography>
@@ -360,6 +362,15 @@ const InviteCard = React.memo(({ isOwner, inviteUserId, setInviteUserId, handleI
                     Invite User
                 </Button>
             </Stack>
+            {recommenedMembers && recommenedMembers.length > 0 ?
+                <div>
+                    <br />
+                    <Typography variant="h7" gutterBottom>Recommended Members</Typography>
+                    {recommenedMembers.map((rm) => <Button onClick={() => {
+                        navigate(`/profile/${rm}`)
+                        console.log('navigating')
+                    }}>{rm}</Button>)}
+                </div> : null}
         </Card>
     );
 });
@@ -376,6 +387,7 @@ const TeamPage = ({ user }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedDescription, setEditedDescription] = useState('');
     const [editedSkills, setEditedSkills] = useState('');
+    const [recommenedMembers, setRecommendedMembers] = useState([]);
 
     // --- Derived Values ---
     const { teamID } = useParams();
@@ -395,6 +407,7 @@ const TeamPage = ({ user }) => {
         try {
             const info = await getTeamInfo(teamID);
 
+
             const mockedInfo = { ...info };
             mockedInfo.approved_members = info.approved_members.map(m => ({
                 ...m,
@@ -410,12 +423,19 @@ const TeamPage = ({ user }) => {
             }));
             
             setTeamDetails(mockedInfo);
+
         } catch (e) {
             console.error("Error fetching team details:", e);
             setError("Failed to load team details. Please try again.");
             setTeamDetails(null);
         } finally {
             setIsLoading(false);
+        }
+        try{
+            const r_members = await getRecommendedMembers(teamID);
+            setRecommendedMembers(r_members);
+        } catch (e) {
+            console.log(e);
         }
     }, [teamID, currentUserId, currentUsername]);
 
@@ -616,6 +636,7 @@ const TeamPage = ({ user }) => {
                     inviteUserId={inviteUserId} 
                     setInviteUserId={setInviteUserId} 
                     handleInvite={handleInvite} 
+                    recommenedMembers={recommenedMembers}
                 />
             </Box>
         </Grid>

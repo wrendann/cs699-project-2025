@@ -173,7 +173,7 @@ const App = () => {
         {/* This inner Box contains the routes and will grow to fill the remaining vertical space. */}
         <Grid item style={{ scrollBehavior: "smooth" }}>
           <Box
-              height="calc(100vh)"
+              height="calc(100vh - 70px)"
               style={{
                 overflowY: "scroll",
                 backgroundColor: "#f1f5f9",
@@ -214,7 +214,6 @@ const App = () => {
               <Route path="/profile/:username" element={<Profile user={user} setUser={setUser} />} />
             </Routes>
             </Box>
-            <Box sx={{height: "20px"}}/> {/* Spacer at the bottom */}
         </Grid>
       </Grid>
     </Grid>
