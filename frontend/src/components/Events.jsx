@@ -4,8 +4,6 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import EventMiniBox from "./EventMiniBox";
 
-import { useNavigate } from "react-router-dom";
-
 import { getEvents } from "../services/events";
 import AddNewEvent from "./AddNewEvent";
 import { useState, useEffect } from "react";

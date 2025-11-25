@@ -5,6 +5,11 @@ export const getEvents = async () => {
     return response.data;
 }
 
+export const getPastEvents = async () => {
+    const response = await apiClient.get(`TFapp/events/past/`);
+    return response.data;
+}
+
 export const getEvent = async (eventID) => {
     const response = await apiClient.get(`TFapp/events/${eventID}`);
     return response.data;
