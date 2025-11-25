@@ -206,7 +206,7 @@ const App = () => {
                   />
                 } 
               />
-              <Route path="/pastevents" element={<PastEvents />} />
+              <Route path="/pastevents" element={<PastEvents setLastButton={setLastButton}/>} />
               <Route path="/teams" element={<Teams user={user} />} />
               <Route path="/teams/:teamID" element={<TeamPage 
                     user={user}
