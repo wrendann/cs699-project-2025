@@ -9,7 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
+from django.utils import timezone
 
 from ..models import Event, Team, Membership, User
 from ..serializers import EventSerializer, TeamSerializer, MembershipSerializer, PublicUserProfileSerializer, EventDetailSerializer, TeamDetailSerializer
@@ -22,6 +23,11 @@ class TeamViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer: TeamSerializer):
+        # Prevent creating teams for events that have already ended
+        event = serializer.validated_data.get('event')
+        if event and event.end_date < timezone.now():
+            raise ValidationError({'error': 'Cannot create a team for an event that has already ended.'})
+
         print(self.request.user)
         serializer.save(owner=self.request.user)
 
