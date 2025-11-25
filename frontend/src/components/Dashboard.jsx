@@ -11,7 +11,7 @@ const fetchLatestEvents = async(setLatestEvents) => {
   try
   {
     events = await getEvents();
-    events.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())
+    events.sort((b, a) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())
     events = events.slice(0, 3)
     setLatestEvents(events)
   }
