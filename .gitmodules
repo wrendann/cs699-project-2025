@@ -1,0 +1,3 @@
+[submodule "backend/TFapp/recommendation/fastText"]
+	path = backend/TFapp/recommendation/fastText
+	url = https://github.com/facebookresearch/fastText.git
