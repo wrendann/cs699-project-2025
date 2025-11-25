@@ -5,6 +5,11 @@ export const getEvents = async () => {
     return response.data;
 }
 
+export const getRecommendedEvents = async () => {
+    const response = await apiClient.get(`TFapp/events/recommended/`);
+    return response.data;
+}
+
 export const getPastEvents = async () => {
     const response = await apiClient.get(`TFapp/events/past/`);
     return response.data;

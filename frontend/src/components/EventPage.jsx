@@ -85,7 +85,7 @@ const EventPage = ({setLastButton}) => {
 
 
     return (
-        <Grid item size={{ xs: 12}} sx={{ mx: 'auto' }}>
+        <Grid item maxWidth="lg" size={{ xs: 12}}>
             <Box
                 display="flex"
                 flexDirection="column"

@@ -213,8 +213,8 @@ const App = () => {
                 />} />
               <Route path="/profile/:username" element={<Profile user={user} setUser={setUser} />} />
             </Routes>
+            </Box>
             <Box sx={{height: "20px"}}/> {/* Spacer at the bottom */}
-          </Box>
         </Grid>
       </Grid>
     </Grid>

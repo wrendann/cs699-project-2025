@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import EventMiniBox from "./EventMiniBox";
 import { useNavigate } from "react-router-dom";
 
-import { getEvents } from "../services/events";
+import { getEvents, getRecommendedEvents } from "../services/events";
 import { useState, useEffect } from "react";
 
 const fetchLatestEvents = async(setLatestEvents) => {
@@ -21,11 +21,26 @@ const fetchLatestEvents = async(setLatestEvents) => {
   }
 }
 
+const fetchRecommendedEvents = async(setRecommendedEvents) => {
+  let events;
+  try
+  {
+    events = await getRecommendedEvents();
+    setRecommendedEvents(events)
+  }
+  catch(e)
+  {
+    console.log(e);
+  }
+}
+
 
 const WelcomeEventsBox = ({ setLastButton, user, forceScrollRerender }) => {
   const [latestEvents, setLatestEvents] = useState([]);
+  const [recommendedEvents, setRecommendedEvents] = useState([]);
   useEffect(() => {
     fetchLatestEvents(setLatestEvents);
+    fetchRecommendedEvents(setRecommendedEvents);
   }, [])
   
   return (
@@ -90,7 +105,38 @@ const WelcomeEventsBox = ({ setLastButton, user, forceScrollRerender }) => {
             {latestEvents.map(e => <EventMiniBox eventInfo={e} setLastButton={setLastButton}/>)}
           </Grid>
       </Box>
-    </Grid>
+      {(recommendedEvents && recommendedEvents.length > 0) ? 
+        <Box display="flex"
+        justifyContent="center"
+        alignItems="center"
+        marginLeft={{ xs: "15px", lg: "15px" }}
+        marginRight={{ xs: "15px", lg: "15px" }}
+        sx={{
+          padding: "2.5%",
+          paddingBottom: "3%",
+          borderRadius: "20px",
+          backgroundColor: "white",
+          marginBottom: "15px",
+          marginTop: "20px",
+        }}>
+          <Grid
+          item
+          size={12}
+          style={{
+            backgroundColor: "white",
+            marginBottom: "5px",
+            marginTop: "5px",
+            marginLeft: "10px",
+          }}
+          >
+              <Typography variant="h6" fontFamily="DM Sans" fontWeight="500">
+                Recommended Events
+              </Typography>
+              {recommendedEvents.map(e => <EventMiniBox eventInfo={e} setLastButton={setLastButton}/>)}
+            </Grid> 
+          </Box>
+            : null}
+        </Grid>
   );
 };
 
