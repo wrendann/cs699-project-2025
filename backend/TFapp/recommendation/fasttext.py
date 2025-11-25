@@ -10,7 +10,6 @@ import fasttext
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'teamfinder.settings')
 # django.setup()
 
-from TFapp.models import Event, Team, User
 
 MODEL_PATH = 'TFapp/recommendation/cc.en.300.bin'  # set to your fastText model binary
 FASTTEXT_MODEL = None
@@ -23,6 +22,7 @@ def get_avg_fasttext_vector(text, model):
     return np.mean(vecs, axis=0)
 
 def populate_event_embeddings(model):
+    from TFapp.models import Event
     # Only update events explicitly marked dirty to avoid unnecessary work
     for ev in Event.objects.filter(embedding_needs_update=True):
         text = (ev.name or '') + ' ' + (ev.description or '')
@@ -33,6 +33,7 @@ def populate_event_embeddings(model):
     print('Event embeddings updated.')
 
 def populate_user_embeddings(model):
+    from TFapp.models import User
     for u in User.objects.filter(embedding_needs_update=True):
         text = (u.bio or '') + ' ' + (u.skills or '') + ' ' + (u.interests or '')
         vec = get_avg_fasttext_vector(text, model)
@@ -42,6 +43,7 @@ def populate_user_embeddings(model):
     print('User embeddings updated.')
 
 def populate_team_embeddings(model):
+    from TFapp.models import Team
     for t in Team.objects.filter(embedding_needs_update=True):
         text = (t.name or '') + ' ' + (t.description or '') + ' ' + (t.required_skills or '')
         vec = get_avg_fasttext_vector(text, model)
@@ -63,6 +65,7 @@ def calculate_and_update_embeddings():
     populate_team_embeddings(FASTTEXT_MODEL)
 
 def mark_all_embeddings_dirty():
+    from TFapp.models import Event, User, Team
     Event.objects.all().update(embedding_needs_update=True)
     User.objects.all().update(embedding_needs_update=True)
     Team.objects.all().update(embedding_needs_update=True)

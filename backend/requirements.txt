@@ -14,7 +14,7 @@ djangorestframework==3.16.1
 djangorestframework_simplejwt==5.5.1
 djoser==2.3.3
 drf-nested-routers==0.95.0
--e git+https://github.com/facebookresearch/fastText.git@1142dc4c4ecbc19cc16eee5cdd28472e689267e6#egg=fasttext&subdirectory=../../../../../backend/TFapp/recommendation/fastText
+-e ./backend/TFapp/recommendation/fastText
 idna==3.10
 kaggle==1.7.4.5
 numpy==2.3.5
