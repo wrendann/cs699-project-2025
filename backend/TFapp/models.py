@@ -3,6 +3,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.utils import timezone
 import os
+import numpy as np
+
+# Helper to create a 300-d zero vector for default field values.
+def _zeros_300():
+    # Return a list (JSON serializable) of 300 floats (zeros)
+    return [0.0] * 300
 
 def get_profile_pic_upload_path(instance, filename):
     ext = filename.split('.')[-1]
@@ -21,6 +27,10 @@ class User(AbstractUser):
     interests = models.CharField(max_length=255, blank=True, help_text="Comma-separated list of interests")
     location = models.CharField(max_length=100, blank=True)
     profile_picture = models.ImageField(upload_to=get_profile_pic_upload_path, null=True, blank=True)
+    # 300-d fastText embedding stored as JSON list (compatible with SQLite/Postgres)
+    embedding = models.JSONField(default=_zeros_300, blank=True, help_text="300-d embedding vector (fastText)")
+    # Embedding tracking: external process will mark this True when update is required
+    embedding_needs_update = models.BooleanField(default=False, help_text="If true, signal that embedding should be recalculated by async process")
 
 
     # Add related_name to avoid clashes with the default User model
@@ -44,6 +54,45 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    # Helpers to interact with the embedding as a numpy array
+    def set_embedding(self, vec):
+        """Accepts a list or numpy array and stores a 300-d list of floats.
+
+        If the provided vector is shorter it will be padded with zeros.
+        If longer, it will be truncated to 300.
+        """
+        arr = np.asarray(vec, dtype=float)
+        if arr.size == 0:
+            self.embedding = _zeros_300()
+            return
+        # Resize to 300
+        if arr.size < 300:
+            new = np.zeros(300, dtype=float)
+            new[: arr.size] = arr
+        else:
+            new = arr.flat[:300].astype(float)
+        self.embedding = new.tolist()
+
+    def get_embedding_array(self):
+        """Returns the embedding as a numpy array of shape (300,)"""
+        return np.asarray(self.embedding, dtype=float)
+
+    # --- Embedding update helpers (simple dirty-flag only) ---
+    def needs_embedding_update(self):
+        """Return True if embedding should be recalculated (dirty flag)."""
+        return self.embedding_needs_update
+
+    def mark_embedding_updated(self):
+        """Call this after an external process computes and stores the embedding.
+
+        Clears the dirty flag. Caller should save() the instance.
+        """
+        self.embedding_needs_update = False
+
+    def mark_embedding_dirty(self):
+        """Mark the model as needing embedding recalculation by the external process."""
+        self.embedding_needs_update = True
+
 class Event(models.Model):
     """
     Represents an event or competition for which teams can be formed.
@@ -57,9 +106,40 @@ class Event(models.Model):
     location = models.CharField(max_length=200)
     # organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organized_events')
     created_at = models.DateTimeField(default=timezone.now)
+    # 300-d fastText embedding stored as JSON list
+    embedding = models.JSONField(default=_zeros_300, blank=True, help_text="300-d embedding vector (fastText)")
+    # Embedding tracking: external process will mark this True when update is required
+    embedding_needs_update = models.BooleanField(default=False, help_text="If true, signal that embedding should be recalculated by async process")
 
     def __str__(self):
         return self.name
+
+    def set_embedding(self, vec):
+        """Store event embedding (list or numpy array) as 300-d list."""
+        arr = np.asarray(vec, dtype=float)
+        if arr.size == 0:
+            self.embedding = _zeros_300()
+            return
+        if arr.size < 300:
+            new = np.zeros(300, dtype=float)
+            new[: arr.size] = arr
+        else:
+            new = arr.flat[:300].astype(float)
+        self.embedding = new.tolist()
+
+    def get_embedding_array(self):
+        return np.asarray(self.embedding, dtype=float)
+
+    # --- Embedding update helpers (simple dirty-flag only) ---
+    def needs_embedding_update(self):
+        return self.embedding_needs_update
+
+    def mark_embedding_updated(self):
+        """Clear dirty flag after external process updates embedding. Caller should save()."""
+        self.embedding_needs_update = False
+
+    def mark_embedding_dirty(self):
+        self.embedding_needs_update = True
 
 class Team(models.Model):
     """
@@ -76,9 +156,40 @@ class Team(models.Model):
     required_skills = models.CharField(max_length=255, blank=True, help_text="Comma-separated list of required skills")
     is_open = models.BooleanField(default=True, help_text="Is the team currently looking for members?")
     created_at = models.DateTimeField(default=timezone.now)
+    # 300-d fastText embedding stored as JSON list
+    embedding = models.JSONField(default=_zeros_300, blank=True, help_text="300-d embedding vector (fastText)")
+    # Embedding tracking: external process will mark this True when update is required
+    embedding_needs_update = models.BooleanField(default=False, help_text="If true, signal that embedding should be recalculated by async process")
 
     def __str__(self):
         return f"{self.name} for {self.event.name}"
+    
+    def set_embedding(self, vec):
+        """Store event embedding (list or numpy array) as 300-d list."""
+        arr = np.asarray(vec, dtype=float)
+        if arr.size == 0:
+            self.embedding = _zeros_300()
+            return
+        if arr.size < 300:
+            new = np.zeros(300, dtype=float)
+            new[: arr.size] = arr
+        else:
+            new = arr.flat[:300].astype(float)
+        self.embedding = new.tolist()
+
+    def get_embedding_array(self):
+        return np.asarray(self.embedding, dtype=float)
+
+    # --- Embedding update helpers (simple dirty-flag only) ---
+    def needs_embedding_update(self):
+        return self.embedding_needs_update
+
+    def mark_embedding_updated(self):
+        """Clear dirty flag after external process updates embedding. Caller should save()."""
+        self.embedding_needs_update = False
+
+    def mark_embedding_dirty(self):
+        self.embedding_needs_update = True
 
     @property
     def current_size(self):

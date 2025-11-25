@@ -136,3 +136,9 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# Ignore FastText recommendation submodule directory (local changes/downloads)
+TFapp/recommendation/fastText/
+
+# Ignore downloaded word-vector binary
+TFapp/recommendation/cc.en.300.bin

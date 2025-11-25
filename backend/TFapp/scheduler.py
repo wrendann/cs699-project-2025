@@ -6,12 +6,15 @@ from datetime import datetime
 from django.db import transaction
 from .Scraping.Webscrap import Confirmation, fetch_kaggle_events, ensure_timezone_aware
 from .Scraping.DevpostScrap import fetch_devpost_filtered_events, ensure_timezone_aware as en
+from .recommendation.fasttext import load_model, calculate_and_update_embeddings
+
+
 logger = logging.getLogger(__name__)
 
 # Module-level scheduler reference so we only start once
 _scheduler = None
 
-def scrape_events_placeholder():
+def scrape_events():
     """Placeholder scraping job.
 
     Replace the body of this function with real scraping logic. For now it
@@ -74,12 +77,21 @@ def start_scheduler():
 
     # Run every 60 minutes by default. Adjust the interval as needed.
     _scheduler.add_job(
-        scrape_events_placeholder,
+        scrape_events,
         trigger=IntervalTrigger(seconds=10),
         id="tfapp.scrape_events",
         replace_existing=True,
         max_instances=1,
     )
 
+    # load_model()
+    # _scheduler.add_job(
+    #     calculate_and_update_embeddings,
+    #     trigger=IntervalTrigger(seconds=10),
+    #     id="tfapp.update_recommendation_embeddings",
+    #     replace_existing=True,
+    #     max_instances=1,
+    # )
+
     _scheduler.start()
-    print("Scheduler started with job 'tfapp.scrape_events' (interval: 60m)")
+    print("Scheduler started.")
