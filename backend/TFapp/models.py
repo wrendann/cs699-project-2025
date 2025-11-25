@@ -30,7 +30,7 @@ class User(AbstractUser):
     # 300-d fastText embedding stored as JSON list (compatible with SQLite/Postgres)
     embedding = models.JSONField(default=_zeros_300, blank=True, help_text="300-d embedding vector (fastText)")
     # Embedding tracking: external process will mark this True when update is required
-    embedding_needs_update = models.BooleanField(default=False, help_text="If true, signal that embedding should be recalculated by async process")
+    embedding_needs_update = models.BooleanField(default=True, help_text="If true, signal that embedding should be recalculated by async process")
 
 
     # Add related_name to avoid clashes with the default User model
@@ -109,7 +109,7 @@ class Event(models.Model):
     # 300-d fastText embedding stored as JSON list
     embedding = models.JSONField(default=_zeros_300, blank=True, help_text="300-d embedding vector (fastText)")
     # Embedding tracking: external process will mark this True when update is required
-    embedding_needs_update = models.BooleanField(default=False, help_text="If true, signal that embedding should be recalculated by async process")
+    embedding_needs_update = models.BooleanField(default=True, help_text="If true, signal that embedding should be recalculated by async process")
 
     def __str__(self):
         return self.name
@@ -159,7 +159,7 @@ class Team(models.Model):
     # 300-d fastText embedding stored as JSON list
     embedding = models.JSONField(default=_zeros_300, blank=True, help_text="300-d embedding vector (fastText)")
     # Embedding tracking: external process will mark this True when update is required
-    embedding_needs_update = models.BooleanField(default=False, help_text="If true, signal that embedding should be recalculated by async process")
+    embedding_needs_update = models.BooleanField(default=True, help_text="If true, signal that embedding should be recalculated by async process")
 
     def __str__(self):
         return f"{self.name} for {self.event.name}"
