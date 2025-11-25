@@ -84,14 +84,14 @@ def start_scheduler():
         max_instances=1,
     )
 
-    # load_model()
-    # _scheduler.add_job(
-    #     calculate_and_update_embeddings,
-    #     trigger=IntervalTrigger(seconds=10),
-    #     id="tfapp.update_recommendation_embeddings",
-    #     replace_existing=True,
-    #     max_instances=1,
-    # )
+    load_model()
+    _scheduler.add_job(
+        calculate_and_update_embeddings,
+        trigger=IntervalTrigger(seconds=10),
+        id="tfapp.update_recommendation_embeddings",
+        replace_existing=True,
+        max_instances=1,
+    )
 
     _scheduler.start()
     print("Scheduler started.")

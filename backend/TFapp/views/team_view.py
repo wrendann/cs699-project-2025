@@ -126,4 +126,10 @@ class TeamViewSet(viewsets.ModelViewSet):
             if field in request.data:
                 return Response({"error": f"Editing '{field}' is not allowed."}, status=status.HTTP_400_BAD_REQUEST)
 
-        return super().partial_update(request, *args, **kwargs)
+        response = super().partial_update(request, *args, **kwargs)
+
+        team = self.get_object()
+        team.mark_embedding_dirty()
+        team.save(update_fields=['embedding_needs_update'])
+
+        return response
