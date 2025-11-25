@@ -85,7 +85,8 @@ const EventPage = ({setLastButton}) => {
 
 
     return (
-        <Grid item maxWidth="lg" size={{ xs: 12}}>
+        <Grid item sx={{minWidth:0, maxWidth:{xs:"calc(100vw - 20px)", md: "calc(100vw - 240px)"} }} 
+            size={{ xs: 12 }}>
             <Box
                 display="flex"
                 flexDirection="column"
@@ -132,7 +133,7 @@ const EventPage = ({setLastButton}) => {
                     </Typography>
                 </Box>
 
-                <Box sx={{ p: 2 }}>
+                <Box width="100%" sx={{ p: 2 }}>
                     <Typography
                         variant="h5"
                         component="h2"

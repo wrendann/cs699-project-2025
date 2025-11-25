@@ -545,7 +545,8 @@ const TeamPage = ({ user }) => {
 
     // --- Main Render ---
     return (
-        <Grid item xs={12} sx={{ mx: 'auto', p: { xs: 2, md: 4 } }}>
+        <Grid item xs={12} sx={{ minWidth:0, maxWidth:{xs:"calc(100vw - 20px)", md: "calc(100vw - 240px)"},
+            mx: 'auto', p: { xs: 2, md: 4 } }}>
             <Box sx={{ padding: { xs: "2%", md: "2.5%" }, borderRadius: "20px", backgroundColor: "white", boxShadow: 4 }}>
                 
                 {/* Header & Main Info */}
