@@ -1,23 +1,22 @@
-# cs699-project-2025
+## TeamFinder App (CS-699 Project)
 
-TeamFinder App
+The **TeamFinder App** addresses the difficulty students and professionals face in finding **compatible teammates** for hackathons and competitions. It serves as a unified platform to **browse events, view teams, and efficiently facilitate team creation and matching.**
 
-This app will help you find, join or create teams, for various events and competitions.
+| Developer | Role |
+| :--- | :--- |
+| **Alan Babu** (25M0746) | Backend Module |
+| **M Ziyad** (25M0747) | Frontend Module |
+| **Ragav R** (25M2121) | WebScraping Module |
 
-To be developed using Django backend and a React frontend.
+### **Architecture Summary**
 
-Events will be scraped from different websites like Kaggle.
+The application follows a full-stack architecture with three main modules:
 
-Done by,
-
-* Ragav R - 25M2121
-* M ziyad - 25M0747
-* Alan - 25M0746
-
-
-Resumes will be automatically analyzed and teams can set tags to filter candidates.
-
-We will be using the default sqlite Django database initially.
+| Module | Technologies Used | Primary Role |
+| :--- | :--- | :--- |
+| **Frontend** | **React**, Vite, Material UI, Axios | Provides the **User Interface**, navigation, and handles all user actions (create, join, edit profile). |
+| **Backend** | **Django**, Django REST Framework, Python | Manages **Authentication**, defines **Database Models**, and exposes the secured **REST API**. |
+| **Web Scraping** | Python, Kaggle API | **Fetches and extracts external event data** from sources like Kaggle and Devpost. |
 
 # Frontend
 
@@ -42,7 +41,7 @@ These files manage dependencies, configuration, and the initial application load
 | **`index.html`** | The **main HTML file** that serves as the entry point for the web application. The built JavaScript bundle will be injected here. |
 | **`package.json`** | Defines project **metadata**, scripts (e.g., `start`, `build`), and lists all project **dependencies** and dev dependencies. |
 | **`package-lock.json`** | Records the exact version tree of the installed dependencies, ensuring reproducible builds across different environments. |
-| **`README.md`** | **This file**, providing an overview of the project, setup instructions, and code organization. |
+| **`README.md`** | This file providing an overview of the project, setup instructions, and code organization. |
 | **`vite.config.js`** | Configuration file for **Vite**, the build tool, managing bundling, development server setup, and plugins. |
 
 ---
